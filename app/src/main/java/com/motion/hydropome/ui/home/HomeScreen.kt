@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.R
 import com.motion.hydropome.ui.common.component.BottomArcShape
+import com.motion.hydropome.ui.theme.AppColors
 
 @Composable
 fun HomeScreen(
@@ -95,7 +96,7 @@ fun HomeScreen(
             ) {
 
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,6 +110,28 @@ fun HomeScreen(
                     Text("Cari tanaman...", color = Color.Gray, fontWeight = FontWeight.W400, fontSize = 14.sp)
                 }
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Rekomendasi Untukmu",
+                    color = AppColors.text,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.W700
+                )
+                Text(
+                    text = "Lihat Semua",
+                    color = Color(0xFF179778),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.W700
+                )
+            }
+
         }
     }
 
