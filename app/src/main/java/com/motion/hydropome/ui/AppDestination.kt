@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 sealed class AppDestination {
     @Serializable
+    data object Onboarding : AppDestination()
+
+    @Serializable
     data object Login : AppDestination()
 
     @Serializable

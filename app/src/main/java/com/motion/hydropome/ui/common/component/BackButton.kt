@@ -1,5 +1,6 @@
 package com.motion.hydropome.ui.common.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,11 +31,12 @@ fun BackButton(
                 color = Color(0xFFE8ECF4),
                 shape = RoundedCornerShape(12.dp)
             )
+            .background(Color(0xFFFFFFFF))
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_arrow_left),
+            painter = painterResource(R.drawable.ic_arrow_left),
             contentDescription = null,
             tint = Color(0xFF292D32)
         )

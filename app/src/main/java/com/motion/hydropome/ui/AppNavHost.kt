@@ -11,6 +11,8 @@ import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
 import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
+import com.motion.hydropome.ui.onboarding.OnboardingScreen
+import com.motion.hydropome.ui.onboarding.OnboardingViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 
@@ -20,17 +22,29 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Login
+        startDestination = AppDestination.Onboarding
     ) {
+        composable<AppDestination.Onboarding> {
+            val viewModel: OnboardingViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            OnboardingScreen(
+                uiState = uiState,
+                onPreviousPage = viewModel::decrementPage,
+                onNextPage = viewModel::incrementPage,
+                navController = navController
+            )
+        }
+
         composable<AppDestination.Login> {
             val viewModel: LoginViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
             LoginScreen(
                 uiState = uiState,
-                onLogin = viewModel::login,
                 onNameChanged = viewModel::changeEmail,
-                onPasswordChanged = viewModel::passwordChange,
+                onPasswordChanged = viewModel::changePassword,
+                onLogin = viewModel::login,
                 navController = navController
             )
         }
