@@ -27,7 +27,11 @@ fun AppNavHost() {
             val uiState by viewModel.uiState.collectAsState()
 
             LoginScreen(
-                uiState = uiState
+                uiState = uiState,
+                onLogin = viewModel::login,
+                onNameChanged = viewModel::changeEmail,
+                onPasswordChanged = viewModel::passwordChange,
+                navController = navController
             )
         }
 
