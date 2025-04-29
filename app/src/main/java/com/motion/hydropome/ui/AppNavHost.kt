@@ -22,7 +22,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Onboarding
+        startDestination = AppDestination.Home
     ) {
         composable<AppDestination.Onboarding> {
             val viewModel: OnboardingViewModel = hiltViewModel()
