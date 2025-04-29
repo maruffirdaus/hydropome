@@ -28,10 +28,10 @@ import com.motion.hydropome.ui.theme.AppTheme
 @Composable
 fun RegisterScreen(
     uiState: RegisterUiState,
-    changeName: (String) -> Unit,
-    changeEmail: (String) -> Unit,
-    changePassword: (String) -> Unit,
-    changeConfirmPassword: (String) -> Unit,
+    onNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onConfirmPasswordChanged: (String) -> Unit,
     onRegister: (()-> Unit) -> Unit,
     navController: NavController
 ) {
@@ -74,8 +74,9 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.name,
-                    onValueChange = changeName,
+                    onValueChange = onNameChanged,
                     placeholder = "Masukkan Nama",
+                    errorMessage = uiState.nameErrorMessage
                 )
                 Spacer(Modifier.height(20.dp))
                 Text(
@@ -87,8 +88,9 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.email,
-                    onValueChange = changeEmail,
+                    onValueChange = onEmailChanged,
                     placeholder = "Masukkan Email",
+                    errorMessage = uiState.emailErrorMessage
                 )
                 Spacer(Modifier.height(20.dp))
                 Text(
@@ -100,9 +102,10 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.password,
-                    onValueChange = changePassword,
+                    onValueChange = onPasswordChanged,
                     placeholder = "Masukkan Password",
-                    isPassword = true
+                    isPassword = true,
+                    errorMessage = uiState.passwordErrorMessage
                 )
                 Spacer(Modifier.height(20.dp))
                 Text(
@@ -114,9 +117,10 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.confirmPassword,
-                    onValueChange = changeConfirmPassword,
+                    onValueChange = onConfirmPasswordChanged,
                     placeholder = "Masukkan Password",
-                    isPassword = true
+                    isPassword = true,
+                    errorMessage = uiState.confirmPasswordErrorMessage
                 )
                 Spacer(Modifier.height(40.dp))
                 CustomButton(
@@ -126,7 +130,8 @@ fun RegisterScreen(
                             navController.popBackStack()
                         }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isEnabled = uiState.isFormValid
                 )
             }
         }
@@ -139,10 +144,10 @@ private fun RegisterScreenPreview() {
     AppTheme {
         RegisterScreen(
             uiState = RegisterUiState(),
-            changeName = {},
-            changeEmail = {},
-            changePassword = {},
-            changeConfirmPassword = {},
+            onNameChanged = {},
+            onEmailChanged = {},
+            onPasswordChanged = {},
+            onConfirmPasswordChanged = {},
             onRegister = {},
             navController = rememberNavController()
         )

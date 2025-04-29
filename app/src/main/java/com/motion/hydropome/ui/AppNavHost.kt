@@ -37,10 +37,10 @@ fun AppNavHost() {
 
             RegisterScreen(
                 uiState = uiState,
-                changeName = viewModel::changeName,
-                changeEmail = viewModel::changeEmail,
-                changePassword = viewModel::changePassword,
-                changeConfirmPassword = viewModel::changeConfirmPassword,
+                onNameChanged = viewModel::changeName,
+                onEmailChanged = viewModel::changeEmail,
+                onPasswordChanged = viewModel::changePassword,
+                onConfirmPasswordChanged = viewModel::changeConfirmPassword,
                 onRegister = viewModel::register,
                 navController = navController
             )

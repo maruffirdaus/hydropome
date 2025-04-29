@@ -1,5 +1,6 @@
 package com.motion.hydropome.ui.register
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.motion.hydropome.data.repository.AuthRepository
@@ -19,25 +20,78 @@ class RegisterViewModel @Inject constructor(
 
     fun changeName(name: String) {
         _uiState.update {
-            it.copy(name = name)
+            it.copy(
+                name = name,
+                nameErrorMessage = if (name.isBlank()) {
+                    "Nama tidak boleh kosong."
+                } else {
+                    null
+                }
+            )
         }
+        validateForm()
     }
 
     fun changeEmail(email: String) {
         _uiState.update {
-            it.copy(email = email)
+            it.copy(
+                email = email,
+                emailErrorMessage = if (email.isBlank()) {
+                    "Email tidak boleh kosong."
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    "Format email tidak valid."
+                } else {
+                    null
+                }
+            )
         }
+        validateForm()
     }
 
     fun changePassword(password: String) {
         _uiState.update {
-            it.copy(password = password)
+            it.copy(
+                password = password,
+                passwordErrorMessage = if (password.isBlank()) {
+                    "Password tidak boleh kosong."
+                } else if (password.length < 8) {
+                    "Password minimal 8 karakter."
+                } else {
+                    null
+                }
+            )
         }
+        validateForm()
     }
 
     fun changeConfirmPassword(confirmPassword: String) {
         _uiState.update {
-            it.copy(confirmPassword = confirmPassword)
+            it.copy(
+                confirmPassword = confirmPassword,
+                confirmPasswordErrorMessage = if (confirmPassword.isBlank()) {
+                    "Konfirmasi password tidak boleh kosong."
+                } else if (confirmPassword != uiState.value.password) {
+                    "Konfirmasi password tidak sesuai."
+                } else {
+                    null
+                }
+            )
+        }
+        validateForm()
+    }
+
+    private fun validateForm() {
+        _uiState.update {
+            it.copy(
+                isFormValid = it.nameErrorMessage == null &&
+                        it.name.isNotBlank() &&
+                        it.emailErrorMessage == null &&
+                        it.email.isNotBlank() &&
+                        it.passwordErrorMessage == null &&
+                        it.password.isNotBlank() &&
+                        it.confirmPasswordErrorMessage == null &&
+                        it.confirmPassword.isNotBlank()
+            )
         }
     }
 

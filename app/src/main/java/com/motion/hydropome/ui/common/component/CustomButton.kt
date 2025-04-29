@@ -29,7 +29,7 @@ fun CustomButton(
         modifier = modifier
             .height(48.dp)
             .clip(RoundedCornerShape(12.dp))
-            .background(if (isEnabled) AppColors.primary else Color.Gray)
+            .background(AppColors.primary.copy(alpha = if (isEnabled) 1f else 0.5f))
             .clickable(
                 enabled = isEnabled,
                 onClick = onClick
@@ -40,7 +40,7 @@ fun CustomButton(
     ) {
         Text(
             text = text,
-            color = if (isEnabled) Color(0xFFFFFFFF) else Color.DarkGray,
+            color = Color(0xFFFFFFFF).copy(alpha = if (isEnabled) 1f else 0.5f),
             fontSize = 16.sp,
             fontWeight = FontWeight.W600
         )

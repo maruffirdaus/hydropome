@@ -7,7 +7,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,6 +50,7 @@ fun CustomTextField(
     placeholder: String,
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
+    errorMessage: String? = null
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
@@ -72,62 +75,77 @@ fun CustomTextField(
         interactionSource = interactionSource,
         cursorBrush = SolidColor(AppColors.primary),
         decorationBox = { innerTextField ->
-            Box(
-                modifier = Modifier
-                    .height(48.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .border(
-                        width = 1.dp,
-                        color = if (isFocused || value.isNotBlank()) {
-                            AppColors.primary
-                        } else {
-                            Color(0xFFE8ECF4)
-                        },
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .background(Color(0xFFF7F8F9))
-                    .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (value.isNotBlank()) {
-                        innerTextField()
-                    } else {
-                        Text(
-                            text = placeholder,
-                            color = Color(0xFF8391A1),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.W400,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1
+            Column {
+                Box(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .border(
+                            width = 1.dp,
+                            color = if (errorMessage != null) {
+                                Color(0xFFEC0105)
+                            } else if (isFocused || value.isNotBlank()) {
+                                AppColors.primary
+                            } else {
+                                Color(0xFFE8ECF4)
+                            },
+                            shape = RoundedCornerShape(12.dp)
                         )
-                    }
-                    if (isPassword) {
-                        Box(
-                            modifier = Modifier
-                                .absoluteOffset(x = 8.dp)
-                                .size(36.dp)
-                                .clip(RoundedCornerShape(50))
-                                .clickable {
-                                    isPasswordVisible = !isPasswordVisible
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = if (isPasswordVisible) {
-                                    painterResource(id = R.drawable.ic_eye_slash)
-                                } else {
-                                    painterResource(id = R.drawable.ic_eye)
-                                },
-                                contentDescription = null,
-                                tint = Color(0xFF8391A1)
+                        .background(Color(0xFFF7F8F9))
+                        .padding(horizontal = 16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (value.isNotBlank()) {
+                            innerTextField()
+                        } else {
+                            Text(
+                                text = placeholder,
+                                color = Color(0xFF8391A1),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.W400,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1
                             )
                         }
+                        if (isPassword) {
+                            Box(
+                                modifier = Modifier
+                                    .absoluteOffset(x = 8.dp)
+                                    .size(36.dp)
+                                    .clip(RoundedCornerShape(50))
+                                    .clickable {
+                                        isPasswordVisible = !isPasswordVisible
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = if (isPasswordVisible) {
+                                        painterResource(id = R.drawable.ic_eye_slash)
+                                    } else {
+                                        painterResource(id = R.drawable.ic_eye)
+                                    },
+                                    contentDescription = null,
+                                    tint = Color(0xFF8391A1)
+                                )
+                            }
+                        }
                     }
+                }
+                if (errorMessage != null) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = errorMessage,
+                        color = Color(0xFFEC0105),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.W400,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
+                    )
                 }
             }
         }
@@ -155,6 +173,20 @@ private fun CustomPasswordTextFieldPreview() {
             placeholder = "Masukkan Password",
             onValueChange = {},
             isPassword = true
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun CustomTextFieldErrorPreview() {
+    AppTheme {
+        CustomTextField(
+            value = "",
+            placeholder = "Masukkan Password",
+            onValueChange = {},
+            isPassword = true,
+            errorMessage = "Password tidak sesuai. Coba lagi."
         )
     }
 }
