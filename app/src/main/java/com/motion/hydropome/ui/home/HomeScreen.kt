@@ -2,7 +2,7 @@ package com.motion.hydropome.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.motion.hydropome.ui.theme.HydropomeTheme
+import com.motion.hydropome.ui.theme.AppTheme
 
 @Composable
 fun HomeScreen(
@@ -14,7 +14,7 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HydropomeTheme {
+    AppTheme {
         HomeScreen(
             uiState = HomeUiState()
         )

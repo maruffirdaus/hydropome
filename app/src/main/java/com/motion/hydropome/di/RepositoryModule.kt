@@ -1,6 +1,7 @@
 package com.motion.hydropome.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.motion.hydropome.data.repository.AuthRepository
 import dagger.Module
 import dagger.Provides
@@ -13,5 +14,6 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideAuthRepository(auth: FirebaseAuth): AuthRepository = AuthRepository(auth)
+    fun provideAuthRepository(auth: FirebaseAuth, firestore: FirebaseFirestore): AuthRepository =
+        AuthRepository(auth, firestore)
 }

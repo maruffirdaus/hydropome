@@ -15,14 +15,14 @@ import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 
 @Composable
-fun HydropomeNavHost() {
+fun AppNavHost() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = HydropomeDestination.Login
+        startDestination = AppDestination.Login
     ) {
-        composable<HydropomeDestination.Login> {
+        composable<AppDestination.Login> {
             val viewModel: LoginViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
@@ -31,16 +31,22 @@ fun HydropomeNavHost() {
             )
         }
 
-        composable<HydropomeDestination.Register> {
+        composable<AppDestination.Register> {
             val viewModel: RegisterViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 
             RegisterScreen(
-                uiState = uiState
+                uiState = uiState,
+                changeName = viewModel::changeName,
+                changeEmail = viewModel::changeEmail,
+                changePassword = viewModel::changePassword,
+                changeConfirmPassword = viewModel::changeConfirmPassword,
+                onRegister = viewModel::register,
+                navController = navController
             )
         }
 
-        composable<HydropomeDestination.Home> {
+        composable<AppDestination.Home> {
             val viewModel: HomeViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
 

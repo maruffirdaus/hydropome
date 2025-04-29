@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.motion.hydropome.ui.theme.HydropomeTheme
+import com.motion.hydropome.ui.theme.AppTheme
 
 @Composable
 fun LoginScreen(
@@ -29,7 +29,7 @@ fun LoginScreen(
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    HydropomeTheme {
+    AppTheme {
         LoginScreen(
             uiState = LoginUiState()
         )
