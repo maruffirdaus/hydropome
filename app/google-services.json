@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "405183590622",
+    "project_id": "hydropome",
+    "storage_bucket": "hydropome.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405183590622:android:cc95d7034ce750654b924f",
+        "android_client_info": {
+          "package_name": "com.motion.hydropome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5Pr4hdstw8Xdu9naMFY7mZKjEyzgD_8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
