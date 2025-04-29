@@ -23,12 +23,12 @@ class AuthRepository @Inject constructor(
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             authResult.user?.let {
                 val user = hashMapOf(
-                    "id" to it.uid,
                     "name" to name,
                     "email" to email
                 )
                 firestore.collection("users")
-                    .add(user)
+                    .document(it.uid)
+                    .set(user)
                     .await()
             }
             Result.success(Unit)
