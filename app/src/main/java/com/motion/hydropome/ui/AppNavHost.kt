@@ -11,10 +11,14 @@ import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
 import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
+import com.motion.hydropome.ui.main.MainScreen
+import com.motion.hydropome.ui.main.MainViewModel
 import com.motion.hydropome.ui.onboarding.OnboardingScreen
 import com.motion.hydropome.ui.onboarding.OnboardingViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
+import com.motion.hydropome.ui.splash.SplashScreen
+import com.motion.hydropome.ui.splash.SplashViewModel
 
 @Composable
 fun AppNavHost() {
@@ -22,8 +26,17 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Home
+        startDestination = AppDestination.Splash
     ) {
+        composable<AppDestination.Splash> {
+            val viewModel: SplashViewModel = hiltViewModel()
+
+            SplashScreen(
+                isLoggedIn = viewModel::isLoggedIn,
+                navController = navController
+            )
+        }
+
         composable<AppDestination.Onboarding> {
             val viewModel: OnboardingViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
@@ -42,8 +55,8 @@ fun AppNavHost() {
 
             LoginScreen(
                 uiState = uiState,
-                onNameChanged = viewModel::changeEmail,
-                onPasswordChanged = viewModel::changePassword,
+                onNameChange = viewModel::changeEmail,
+                onPasswordChange = viewModel::changePassword,
                 onLogin = viewModel::login,
                 navController = navController
             )
@@ -55,21 +68,30 @@ fun AppNavHost() {
 
             RegisterScreen(
                 uiState = uiState,
-                onNameChanged = viewModel::changeName,
-                onEmailChanged = viewModel::changeEmail,
-                onPasswordChanged = viewModel::changePassword,
-                onConfirmPasswordChanged = viewModel::changeConfirmPassword,
+                onNameChange = viewModel::changeName,
+                onEmailChange = viewModel::changeEmail,
+                onPasswordChange = viewModel::changePassword,
+                onConfirmPasswordChange = viewModel::changeConfirmPassword,
                 onRegister = viewModel::register,
                 navController = navController
             )
         }
 
-        composable<AppDestination.Home> {
-            val viewModel: HomeViewModel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsState()
+        composable<AppDestination.Main> {
+            val mainViewModel: MainViewModel = hiltViewModel()
+            val mainUiState by mainViewModel.uiState.collectAsState()
 
-            HomeScreen(
-                uiState = uiState
+            val homeViewModel: HomeViewModel = hiltViewModel()
+            val homeUiState by homeViewModel.uiState.collectAsState()
+
+            MainScreen(
+                uiState = mainUiState,
+                homeScreen = {
+                    HomeScreen(
+                        uiState = homeUiState
+                    )
+                },
+                onSelectedNavItemChange = mainViewModel::changeSelectedIndex
             )
         }
     }

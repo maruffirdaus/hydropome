@@ -34,10 +34,10 @@ import com.motion.hydropome.ui.theme.AppTheme
 @Composable
 fun RegisterScreen(
     uiState: RegisterUiState,
-    onNameChanged: (String) -> Unit,
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    onConfirmPasswordChanged: (String) -> Unit,
+    onNameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
     onRegister: (()-> Unit) -> Unit,
     navController: NavController
 ) {
@@ -82,7 +82,7 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.name,
-                    onValueChange = onNameChanged,
+                    onValueChange = onNameChange,
                     placeholder = "Masukkan Nama",
                     errorMessage = uiState.nameErrorMessage
                 )
@@ -96,7 +96,7 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.email,
-                    onValueChange = onEmailChanged,
+                    onValueChange = onEmailChange,
                     placeholder = "Masukkan Email",
                     errorMessage = uiState.emailErrorMessage
                 )
@@ -110,7 +110,7 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.password,
-                    onValueChange = onPasswordChanged,
+                    onValueChange = onPasswordChange,
                     placeholder = "Masukkan Password",
                     isPassword = true,
                     errorMessage = uiState.passwordErrorMessage
@@ -125,7 +125,7 @@ fun RegisterScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.confirmPassword,
-                    onValueChange = onConfirmPasswordChanged,
+                    onValueChange = onConfirmPasswordChange,
                     placeholder = "Masukkan Password",
                     isPassword = true,
                     errorMessage = uiState.confirmPasswordErrorMessage
@@ -152,10 +152,10 @@ private fun RegisterScreenPreview() {
     AppTheme {
         RegisterScreen(
             uiState = RegisterUiState(),
-            onNameChanged = {},
-            onEmailChanged = {},
-            onPasswordChanged = {},
-            onConfirmPasswordChanged = {},
+            onNameChange = {},
+            onEmailChange = {},
+            onPasswordChange = {},
+            onConfirmPasswordChange = {},
             onRegister = {},
             navController = rememberNavController()
         )

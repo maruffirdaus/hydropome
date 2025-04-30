@@ -1,4 +1,4 @@
-package com.motion.hydropome.ui.common.component
+package com.motion.hydropome.ui.common.shape
 
 
 import androidx.compose.ui.geometry.Size
@@ -16,17 +16,21 @@ class BottomArcShape : Shape {
         density: Density
     ): Outline {
         val path = Path().apply {
-            moveTo(0f, 0f)
-            lineTo(0f, size.height * 0.76f) // Go lower
+            val width = size.width
+            val height = size.height
+            val arcHeight = width / 8
 
-            quadraticBezierTo(
-                size.width / 2f,
-                size.height * 1.2f, // Deeper curve
-                size.width,
-                size.height * 0.76f
+            moveTo(0f, 0f)
+            lineTo(0f, height - arcHeight)
+
+            quadraticTo(
+                width / 2f,
+                height + arcHeight,
+                width,
+                height - arcHeight
             )
 
-            lineTo(size.width, 0f)
+            lineTo(width, 0f)
             close()
         }
 

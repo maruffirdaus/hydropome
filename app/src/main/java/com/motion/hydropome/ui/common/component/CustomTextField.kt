@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +33,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
@@ -66,6 +68,13 @@ fun CustomTextField(
             fontWeight = FontWeight.W400,
             fontFamily = plusJakartaSansFontFamily
         ),
+        keyboardOptions = if (isPassword) {
+            KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            )
+        } else {
+            KeyboardOptions.Default
+        },
         singleLine = true,
         visualTransformation = if (!isPassword || isPasswordVisible) {
             VisualTransformation.None
@@ -133,6 +142,7 @@ fun CustomTextField(
                                         painterResource(id = R.drawable.ic_eye)
                                     },
                                     contentDescription = null,
+                                    modifier = Modifier.size(20.dp),
                                     tint = Color(0xFF8391A1)
                                 )
                             }

@@ -1,6 +1,5 @@
 package com.motion.hydropome.ui.onboarding
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,10 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +34,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.R
 import com.motion.hydropome.ui.AppDestination
+import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
 import com.motion.hydropome.ui.theme.AppTheme
 
@@ -49,180 +46,158 @@ fun OnboardingScreen(
     navController: NavController
 ) {
     Scaffold { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppColors.primary)
+                .background(AppColors.background)
         ) {
-            val images = listOf(
-                R.drawable.onboarding_0,
-                R.drawable.onboarding_1
-            )
-            val headlines = listOf(
-                "Tanam Sayur Segar dari Rumah Tanpa Ribet! \uD83E\uDD55\uD83C\uDF45",
-                "Belanja Starter Kit & Jual Hasil Panen!"
-            )
-            val descriptions = listOf(
-                "Bersama Hydropame, menanam sayuran untuk hidup lebih sehat dan hemat jadi lebih mudah!",
-                "Belanja, jual panen, dan penuhi kebutuhanmu di marketplace kami. Praktis banget buat kamu yang suka berkebun dari rumah!"
-            )
+            Column {
+                val images = listOf(
+                    R.drawable.onboarding_0,
+                    R.drawable.onboarding_1
+                )
+                val headlines = listOf(
+                    "Tanam Sayur Segar dari Rumah Tanpa Ribet! \uD83E\uDD55\uD83C\uDF45",
+                    "Belanja Starter Kit & Jual Hasil Panen!"
+                )
+                val descriptions = listOf(
+                    "Bersama HydropoMe, menanam sayuran untuk hidup lebih sehat dan hemat jadi lebih mudah!",
+                    "Belanja, jual panen, dan penuhi kebutuhanmu di marketplace kami. Praktis banget buat kamu yang suka berkebun dari rumah!"
+                )
 
-            Box(
-                modifier = Modifier.fillMaxHeight(0.5f)
-            ) {
                 Image(
                     painter = painterResource(images[uiState.page]),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.5f)
+                        .clip(BottomArcShape()),
                     alignment = Alignment.TopCenter,
                     contentScale = ContentScale.Crop
                 )
-                Canvas(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(64.dp)
-                        .align(Alignment.BottomCenter)
-                ) {
-                    val width = size.width
-                    val height = size.height
-
-                    val rectPath = Path().apply {
-                        addRect(Rect(0f, 0f, width, height))
-                    }
-
-                    val cutoutPath = Path().apply {
-                        quadraticTo(width / 2f, height * 1.5f, width, 0f)
-                    }
-
-                    val finalPath = Path.combine(
-                        PathOperation.Difference,
-                        rectPath,
-                        cutoutPath
-                    )
-
-                    drawPath(finalPath, AppColors.primary)
-                }
-                Box(
-                    modifier = Modifier
-                        .padding(
-                            top = innerPadding.calculateTopPadding() + 12.dp,
-                            end = 20.dp
-                        )
-                        .width(64.dp)
-                        .height(36.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFFE8F5F2))
-                        .clickable {
-                            navController.navigate(AppDestination.Login)
-                        }
-                        .align(Alignment.TopEnd),
-                    contentAlignment = Alignment.Center
+                Spacer(Modifier.weight(0.1f))
+                Column(
+                    modifier = Modifier.weight(0.5f)
                 ) {
                     Text(
-                        text = "Lewati",
-                        color = Color(0xFF179778),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.W600
+                        text = headlines[uiState.page],
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        color = AppColors.textLight,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.W700,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        text = descriptions[uiState.page],
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        color = AppColors.textLight,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        textAlign = TextAlign.Center
                     )
                 }
-            }
-            Spacer(Modifier.weight(0.1f))
-            Column(
-                modifier = Modifier.weight(0.5f)
-            ) {
-                Text(
-                    text = headlines[uiState.page],
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    color = AppColors.textLight,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.W700,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    text = descriptions[uiState.page],
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    color = AppColors.textLight,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.W400,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Spacer(Modifier.weight(0.2f))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (0 < uiState.page) {
+                Spacer(Modifier.weight(0.2f))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (0 < uiState.page) {
+                        Box(
+                            modifier = Modifier
+                                .size(42.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(Color(0xFFFFFFFF).copy(alpha = 0.2f))
+                                .clickable(onClick = onPreviousPage),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_arrow_left),
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp),
+                                tint = Color(0xFFE8F5F2)
+                            )
+                        }
+                    } else {
+                        Spacer(Modifier.width(42.dp))
+                    }
+                    Spacer(Modifier.weight(1f))
+                    Box(
+                        modifier = Modifier
+                            .size(14.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                if (uiState.page == 0) {
+                                    Color(0xFF179778)
+                                } else {
+                                    Color(0xFFFFFFFF).copy(alpha = 0.2f)
+                                }
+                            )
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .size(14.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                if (uiState.page == 1) {
+                                    Color(0xFF179778)
+                                } else {
+                                    Color(0xFFFFFFFF).copy(alpha = 0.2f)
+                                }
+                            )
+                    )
+                    Spacer(Modifier.weight(1f))
                     Box(
                         modifier = Modifier
                             .size(42.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFFE8F5F2))
-                            .clickable(onClick = onPreviousPage),
+                            .background(Color(0xFFFFFFFF).copy(alpha = 0.2f))
+                            .clickable {
+                                if (uiState.page < 1) {
+                                    onNextPage()
+                                } else {
+                                    navController.navigate(AppDestination.Login)
+                                }
+                            },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_arrow_left),
+                            painter = painterResource(R.drawable.ic_arrow_right),
                             contentDescription = null,
-                            tint = AppColors.primary
+                            modifier = Modifier.size(24.dp),
+                            tint = Color(0xFFE8F5F2)
                         )
                     }
-                } else {
-                    Spacer(Modifier.width(42.dp))
                 }
-                Spacer(Modifier.weight(1f))
-                Box(
-                    modifier = Modifier
-                        .size(14.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            if (uiState.page == 0) {
-                                Color(0xFFE8F5F2)
-                            } else {
-                                Color(0xFFFFFFFF).copy(alpha = 0.2f)
-                            }
-                        )
-                )
-                Spacer(Modifier.width(8.dp))
-                Box(
-                    modifier = Modifier
-                        .size(14.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            if (uiState.page == 1) {
-                                Color(0xFFE8F5F2)
-                            } else {
-                                Color(0xFFFFFFFF).copy(alpha = 0.2f)
-                            }
-                        )
-                )
-                Spacer(Modifier.weight(1f))
-                Box(
-                    modifier = Modifier
-                        .size(42.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFFE8F5F2))
-                        .clickable {
-                            if (uiState.page < 1) {
-                                onNextPage()
-                            } else {
-                                navController.navigate(AppDestination.Login)
-                            }
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_arrow_right),
-                        contentDescription = null,
-                        tint = AppColors.primary
-                    )
-                }
+                Spacer(Modifier.weight(0.2f))
+                Spacer(Modifier.height(innerPadding.calculateBottomPadding()))
             }
-            Spacer(Modifier.weight(0.2f))
-            Spacer(Modifier.height(innerPadding.calculateBottomPadding()))
+            Box(
+                modifier = Modifier
+                    .padding(
+                        top = innerPadding.calculateTopPadding() + 12.dp,
+                        end = 20.dp
+                    )
+                    .width(64.dp)
+                    .height(36.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFFE8F5F2))
+                    .clickable {
+                        navController.navigate(AppDestination.Login)
+                    }
+                    .align(Alignment.TopEnd),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Lewati",
+                    color = Color(0xFF179778),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.W600
+                )
+            }
         }
     }
 }

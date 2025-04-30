@@ -38,6 +38,7 @@ fun BackButton(
         Icon(
             painter = painterResource(R.drawable.ic_arrow_left),
             contentDescription = null,
+            modifier = Modifier.size(24.dp),
             tint = Color(0xFF292D32)
         )
     }

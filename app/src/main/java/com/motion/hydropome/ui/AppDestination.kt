@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 sealed class AppDestination {
     @Serializable
+    data object Splash : AppDestination()
+
+    @Serializable
     data object Onboarding : AppDestination()
 
     @Serializable
@@ -13,5 +16,5 @@ sealed class AppDestination {
     data object Register : AppDestination()
 
     @Serializable
-    data object Home : AppDestination()
+    data object Main : AppDestination()
 }

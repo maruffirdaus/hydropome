@@ -42,8 +42,8 @@ import com.motion.hydropome.ui.theme.AppTheme
 @Composable
 fun LoginScreen(
     uiState: LoginUiState,
-    onNameChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
+    onNameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     onLogin: (() -> Unit) -> Unit,
     navController: NavController
 ) {
@@ -88,7 +88,7 @@ fun LoginScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.email,
-                    onValueChange = onNameChanged,
+                    onValueChange = onNameChange,
                     placeholder = "Masukkan Email",
                     errorMessage = uiState.emailErrorMessage
                 )
@@ -102,7 +102,7 @@ fun LoginScreen(
                 Spacer(Modifier.height(8.dp))
                 CustomTextField(
                     value = uiState.password,
-                    onValueChange = onPasswordChanged,
+                    onValueChange = onPasswordChange,
                     placeholder = "Masukkan Password",
                     isPassword = true,
                     errorMessage = uiState.passwordErrorMessage
@@ -112,8 +112,8 @@ fun LoginScreen(
                     text = "Masuk",
                     onClick = {
                         onLogin {
-                            navController.navigate(AppDestination.Home) {
-                                popUpTo(AppDestination.Login) {
+                            navController.navigate(AppDestination.Main) {
+                                popUpTo(0) {
                                     inclusive = true
                                 }
                             }
@@ -158,8 +158,8 @@ private fun LoginScreenPreview() {
     AppTheme {
         LoginScreen(
             uiState = LoginUiState(),
-            onNameChanged = {},
-            onPasswordChanged = {},
+            onNameChange = {},
+            onPasswordChange = {},
             onLogin = {},
             navController = rememberNavController()
         )

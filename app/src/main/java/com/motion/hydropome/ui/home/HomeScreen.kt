@@ -2,7 +2,6 @@ package com.motion.hydropome.ui.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -35,7 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.R
-import com.motion.hydropome.ui.common.component.BottomArcShape
+import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
 
 @Composable
@@ -48,7 +48,7 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .height(340.dp)
                 .clip(BottomArcShape())
-                .background(Color(0xFF00A676))
+                .background(AppColors.background)
         )
         Column(
             modifier = Modifier
@@ -141,8 +141,10 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     AppTheme {
-        HomeScreen(
-            uiState = HomeUiState()
-        )
+        Surface {
+            HomeScreen(
+                uiState = HomeUiState()
+            )
+        }
     }
 }
