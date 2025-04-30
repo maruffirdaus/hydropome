@@ -3,7 +3,7 @@ package com.motion.hydropome.ui.personalization.model
 import androidx.annotation.DrawableRes
 
 data class Question(
-    val id: Int,
+    val id: String,
     val title: String,
     val answers: List<String>,
     val isMultipleAnswer: Boolean = false,

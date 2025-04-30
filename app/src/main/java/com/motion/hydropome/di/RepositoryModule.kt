@@ -3,6 +3,7 @@ package com.motion.hydropome.di
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.motion.hydropome.data.repository.AuthRepository
+import com.motion.hydropome.data.repository.PlantRepository
 import com.motion.hydropome.data.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -22,4 +23,9 @@ object RepositoryModule {
     @Singleton
     fun provideUserRepository(auth: FirebaseAuth, firestore: FirebaseFirestore): UserRepository =
         UserRepository(auth, firestore)
+
+    @Provides
+    @Singleton
+    fun providePlantRepository(firestore: FirebaseFirestore): PlantRepository =
+        PlantRepository(firestore)
 }

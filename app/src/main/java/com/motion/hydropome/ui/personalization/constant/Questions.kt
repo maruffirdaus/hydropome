@@ -6,7 +6,7 @@ import com.motion.hydropome.ui.personalization.model.Question
 val questions = listOf(
     listOf(
         Question(
-            id = 0,
+            id = "0",
             title = "Apakah kamu pernah mencoba menanam hidroponik sebelumnya?",
             answers = listOf(
                 "Belum pernah",
@@ -16,7 +16,7 @@ val questions = listOf(
             isMultipleAnswer = false
         ),
         Question(
-            id = 1,
+            id = "1",
             title = "Apa tujuan utama kamu menggunakan aplikasi HydropoMe?",
             answers = listOf(
                 "Belajar hidroponik dari awal",
@@ -29,7 +29,7 @@ val questions = listOf(
     ),
     listOf(
         Question(
-            id = 2,
+            id = "2",
             title = "Jenis tanaman apa saja yang ingin kamu tanam?",
             answers = listOf(
                 "Sayuran daun (misalnya selada, bayam)",
@@ -40,7 +40,7 @@ val questions = listOf(
             isMultipleAnswer = true
         ),
         Question(
-            id = 3,
+            id = "3",
             title = "Berapa  waktu yang bisa diluangkan per hari untuk merawat tanaman?",
             answers = listOf(
                 "< 10 menit",
@@ -50,7 +50,7 @@ val questions = listOf(
             isMultipleAnswer = false
         ),
         Question(
-            id = 4,
+            id = "4",
             title = "Di mana kamu akan menanam tanaman hidroponik?",
             answers = listOf(
                 "Dalam ruangan",
@@ -62,7 +62,7 @@ val questions = listOf(
     ),
     listOf(
         Question(
-            id = 5,
+            id = "5",
             title = "Berapa luas area tanam yang kamu miliki?",
             answerImages = listOf(
                 R.drawable.answer_image_0,

@@ -30,7 +30,7 @@ class PersonalizationViewModel @Inject constructor(
         }
     }
 
-    fun changeSelectedAnswers(questionId: Int, selectedAnswers: List<Boolean>) {
+    fun changeSelectedAnswers(questionId: String, selectedAnswers: List<Boolean>) {
         _uiState.update {
             val newSelectedAnswers = it.selectedAnswers.mapValues { (_, innerMap) ->
                 innerMap.toMutableMap()
@@ -53,10 +53,10 @@ class PersonalizationViewModel @Inject constructor(
             for ((_, innerMap) in uiState.value.selectedAnswers) {
                 for ((questionId, selectedAnswers) in innerMap) {
                     selectedAnswers.forEachIndexed { index, isSelected ->
-                        val list = preferences.getOrDefault(questionId.toString(), mutableListOf())
+                        val list = preferences.getOrDefault(questionId, mutableListOf())
                         if (isSelected) {
                             list.add(index)
-                            preferences[questionId.toString()] = list
+                            preferences[questionId] = list
                         }
                     }
                 }

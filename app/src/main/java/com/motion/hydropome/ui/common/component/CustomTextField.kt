@@ -85,8 +85,9 @@ fun CustomTextField(
         cursorBrush = SolidColor(AppColors.primary),
         decorationBox = { innerTextField ->
             Column {
-                Box(
+                Row(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .height(48.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .border(
@@ -102,50 +103,45 @@ fun CustomTextField(
                         )
                         .background(Color(0xFFF7F8F9))
                         .padding(horizontal = 16.dp),
-                    contentAlignment = Alignment.CenterStart
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    Box(
+                        contentAlignment = Alignment.CenterStart
                     ) {
-                        Box(
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            if (value.isEmpty()) {
-                                Text(
-                                    text = placeholder,
-                                    color = Color(0xFF8391A1),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.W400,
-                                    overflow = TextOverflow.Ellipsis,
-                                    maxLines = 1
-                                )
-                            }
-                            innerTextField()
+                        if (value.isEmpty()) {
+                            Text(
+                                text = placeholder,
+                                color = Color(0xFF8391A1),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.W400,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1
+                            )
                         }
-                        if (isPassword) {
-                            Box(
-                                modifier = Modifier
-                                    .absoluteOffset(x = 8.dp)
-                                    .size(36.dp)
-                                    .clip(RoundedCornerShape(50))
-                                    .clickable {
-                                        isPasswordVisible = !isPasswordVisible
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    painter = if (isPasswordVisible) {
-                                        painterResource(id = R.drawable.ic_eye_slash)
-                                    } else {
-                                        painterResource(id = R.drawable.ic_eye)
-                                    },
-                                    contentDescription = null,
-                                    modifier = Modifier.size(20.dp),
-                                    tint = Color(0xFF8391A1)
-                                )
-                            }
+                        innerTextField()
+                    }
+                    if (isPassword) {
+                        Box(
+                            modifier = Modifier
+                                .absoluteOffset(x = 8.dp)
+                                .size(36.dp)
+                                .clip(RoundedCornerShape(50))
+                                .clickable {
+                                    isPasswordVisible = !isPasswordVisible
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = if (isPasswordVisible) {
+                                    painterResource(id = R.drawable.ic_eye_slash)
+                                } else {
+                                    painterResource(id = R.drawable.ic_eye)
+                                },
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = Color(0xFF8391A1)
+                            )
                         }
                     }
                 }

@@ -104,7 +104,10 @@ fun AppNavHost() {
                 uiState = mainUiState,
                 homeScreen = {
                     HomeScreen(
-                        uiState = homeUiState
+                        uiState = homeUiState,
+                        onUserRefresh = homeViewModel::refreshUser,
+                        onSearchQueryChange = homeViewModel::changeSearchQuery,
+                        onPlantsRefresh = homeViewModel::refreshPlants
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex

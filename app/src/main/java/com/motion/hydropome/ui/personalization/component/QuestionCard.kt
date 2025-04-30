@@ -154,7 +154,7 @@ private fun QuestionCardPreview() {
     AppTheme {
         QuestionCard(
             question = Question(
-                id = 0,
+                id = "0",
                 title = "Apakah kamu pernah mencoba menanam hidroponik sebelumnya?",
                 answers = listOf(
                     "Belum pernah",
