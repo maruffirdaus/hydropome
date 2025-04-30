@@ -21,8 +21,8 @@ class QrisViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             var timeInSeconds = convertTimeToSeconds(_uiState.value.timer)
             while (timeInSeconds > 0) {
-                delay(1000) // Wait for 1 second
-                timeInSeconds-- // Decrease time by 1 second
+                delay(1000)
+                timeInSeconds--
                 _uiState.update {
                     it.copy(timer = convertSecondsToTime(timeInSeconds))
                 }

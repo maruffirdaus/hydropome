@@ -33,7 +33,7 @@ fun QRISScreen(
     navController: NavController
 ) {
     LaunchedEffect(Unit) {
-        onStartCountdown() // Start the countdown when the screen is first displayed
+        onStartCountdown()
     }
 
     if (uiState.isLoading) {
@@ -52,7 +52,6 @@ fun QRISScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Top AppBar-like row
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -77,13 +76,13 @@ fun QRISScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // QR code with overlay icon
+
             Box(
                 modifier = Modifier.size(200.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.qris), // Replace with your image resource
+                    painter = painterResource(id = R.drawable.qris),
                     contentDescription = "QR Code",
                     modifier = Modifier.fillMaxSize()
                 )
@@ -103,7 +102,7 @@ fun QRISScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = { /* handle download */ },
+                onClick = {  },
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(0xFF17BF7F))
             ) {
