@@ -112,10 +112,8 @@ fun LoginScreen(
                     text = "Masuk",
                     onClick = {
                         onLogin {
-                            navController.navigate(AppDestination.Main) {
-                                popUpTo(0) {
-                                    inclusive = true
-                                }
+                            navController.navigate(AppDestination.Personalization) {
+                                popUpTo(0)
                             }
                         }
                     },

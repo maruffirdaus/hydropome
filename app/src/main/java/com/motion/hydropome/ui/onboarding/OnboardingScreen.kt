@@ -77,11 +77,12 @@ fun OnboardingScreen(
                 )
                 Spacer(Modifier.weight(0.1f))
                 Column(
-                    modifier = Modifier.weight(0.5f)
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .padding(horizontal = 20.dp)
                 ) {
                     Text(
                         text = headlines[uiState.page],
-                        modifier = Modifier.padding(horizontal = 20.dp),
                         color = AppColors.textLight,
                         fontSize = 28.sp,
                         fontWeight = FontWeight.W700,
@@ -90,7 +91,6 @@ fun OnboardingScreen(
                     Spacer(Modifier.height(16.dp))
                     Text(
                         text = descriptions[uiState.page],
-                        modifier = Modifier.padding(horizontal = 20.dp),
                         color = AppColors.textLight,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.W400,

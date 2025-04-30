@@ -1,9 +1,9 @@
 package com.motion.hydropome.ui.splash
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,6 +18,7 @@ import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SplashScreen(
     isLoggedIn: () -> Boolean,
@@ -32,17 +33,13 @@ fun SplashScreen(
                 AppDestination.Onboarding
             }
         ) {
-            popUpTo(0) {
-                inclusive = true
-            }
+            popUpTo(0)
         }
     }
 
-    Scaffold { innerPadding ->
+    Scaffold {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             Image(

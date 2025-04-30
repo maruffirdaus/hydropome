@@ -23,39 +23,17 @@ class AuthRepository @Inject constructor(
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             authResult.user?.let {
-                val user = hashMapOf(
-                    "name" to name,
-                    "email" to email
+                val user = User(
+                    name = name,
+                    email = email
                 )
                 firestore.collection("users")
                     .document(it.uid)
                     .set(user)
                     .await()
             }
+            auth.signOut()
             Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    suspend fun getUser(): Result<User?> {
-        return try {
-            val user = auth.currentUser
-            if (user != null) {
-                val documentSnapshot = firestore.collection("users")
-                    .document(user.uid)
-                    .get()
-                    .await()
-                if (documentSnapshot.exists()) {
-                    Result.success(
-                        User(
-                            name = documentSnapshot.getString("name") ?: "",
-                            email = documentSnapshot.getString("email") ?: ""
-                        )
-                    )
-                }
-            }
-            Result.success(null)
         } catch (e: Exception) {
             Result.failure(e)
         }

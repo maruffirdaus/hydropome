@@ -15,6 +15,8 @@ import com.motion.hydropome.ui.main.MainScreen
 import com.motion.hydropome.ui.main.MainViewModel
 import com.motion.hydropome.ui.onboarding.OnboardingScreen
 import com.motion.hydropome.ui.onboarding.OnboardingViewModel
+import com.motion.hydropome.ui.personalization.PersonalizationScreen
+import com.motion.hydropome.ui.personalization.PersonalizationViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
@@ -73,6 +75,20 @@ fun AppNavHost() {
                 onPasswordChange = viewModel::changePassword,
                 onConfirmPasswordChange = viewModel::changeConfirmPassword,
                 onRegister = viewModel::register,
+                navController = navController
+            )
+        }
+
+        composable<AppDestination.Personalization> {
+            val viewModel: PersonalizationViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            PersonalizationScreen(
+                uiState = uiState,
+                onNextPage = viewModel::incrementPage,
+                onPreviousPage = viewModel::decrementPage,
+                onSelectedAnswerChange = viewModel::changeSelectedAnswers,
+                onSavePreferences = viewModel::savePreferences,
                 navController = navController
             )
         }

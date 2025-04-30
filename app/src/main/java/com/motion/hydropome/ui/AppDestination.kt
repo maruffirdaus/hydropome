@@ -16,5 +16,8 @@ sealed class AppDestination {
     data object Register : AppDestination()
 
     @Serializable
+    data object Personalization : AppDestination()
+
+    @Serializable
     data object Main : AppDestination()
 }
