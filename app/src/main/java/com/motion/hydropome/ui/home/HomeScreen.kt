@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.R
 import com.motion.hydropome.ui.common.component.CountdownTimer
+import com.motion.hydropome.ui.common.component.FlashCard
 import com.motion.hydropome.ui.common.component.HomeCard
 import com.motion.hydropome.ui.common.component.TimeBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
@@ -58,6 +59,14 @@ data class CardItem(
     val difficulty: String,
     val duration: String
 )
+data class FlashCardData(
+    val imageRes: Int,
+    val title: String,
+    val type: String,
+    val priceLabel: String,
+    val discountLabel: String
+)
+
 @Composable
 fun HomeScreen(
     uiState: HomeUiState
@@ -70,6 +79,30 @@ fun HomeScreen(
         CardItem(R.drawable.onboarding_0, "Seledri Hidroponik", "Sedang", "5-6 Ming"),
         CardItem(R.drawable.onboarding_1, "Stroberi Hidroponik", "Sulit", "12-16 Ming"),
     )
+    val dummyFlashCards = listOf(
+        FlashCardData(
+            imageRes = R.drawable.sale1,
+            title = "Basic Starter Kit",
+            type = "Starter Kit",
+            priceLabel = "25.000",
+            discountLabel = "50.000"
+        ),
+        FlashCardData(
+            imageRes = R.drawable.sale2,
+            title = "Basic Starter Kit",
+            type = "Starter Kit",
+            priceLabel = "25.000",
+            discountLabel = "50.000"
+        ),
+        FlashCardData(
+            imageRes = R.drawable.answer_image_2,
+            title = "Smart Watch",
+            type = "Gadgets",
+            priceLabel = "$199.99",
+            discountLabel = "$249.99"
+        )
+    )
+
     Box(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
@@ -199,6 +232,17 @@ fun HomeScreen(
                         modifier = Modifier.padding(top = 20.dp)
                     ){
                         CountdownTimer(10,10,10)
+                    }
+                }
+                LazyRow {
+                    items(dummyFlashCards) { item ->
+                        FlashCard(
+                            imageRes = item.imageRes,
+                            title = item.title,
+                            type = item.type,
+                            priceLabel = item.priceLabel,
+                            discountLabel = item.discountLabel
+                        )
                     }
                 }
             }

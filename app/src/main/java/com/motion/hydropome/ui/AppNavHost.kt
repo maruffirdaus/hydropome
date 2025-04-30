@@ -28,7 +28,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Splash
+        startDestination = AppDestination.Personalization
     ) {
         composable<AppDestination.Splash> {
             val viewModel: SplashViewModel = hiltViewModel()
