@@ -69,7 +69,6 @@ fun HomeScreen(
         CardItem(R.drawable.onboarding_1, "Stroberi Hidroponik", "Sulit", "12-16 Ming"),
     )
     Box(modifier = Modifier.fillMaxSize()) {
-        // Arc-shaped background stays behind everything
         Box(
             modifier = Modifier
                 .fillMaxWidth()
