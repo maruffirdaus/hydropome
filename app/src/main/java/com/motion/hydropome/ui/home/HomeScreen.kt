@@ -46,6 +46,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.R
+import com.motion.hydropome.common.model.Plant
+import com.motion.hydropome.common.type.Difficulty
 import com.motion.hydropome.ui.common.component.SearchBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.home.component.RecommendationCard
@@ -218,7 +220,20 @@ private fun HomeScreenPreview() {
     AppTheme {
         Surface {
             HomeScreen(
-                uiState = HomeUiState(),
+                uiState = HomeUiState(
+                    plants = listOf(
+                        Plant(
+                            title = "Selada Hidroponik",
+                            difficulty = Difficulty.EASY,
+                            duration = "3-5"
+                        ),
+                        Plant(
+                            title = "Bayam Hidroponik",
+                            difficulty = Difficulty.MEDIUM,
+                            duration = "3-4"
+                        ),
+                    )
+                ),
                 onUserRefresh = {},
                 onSearchQueryChange = {},
                 onPlantsRefresh = {}

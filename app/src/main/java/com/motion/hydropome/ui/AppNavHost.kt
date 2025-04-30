@@ -13,10 +13,16 @@ import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
 import com.motion.hydropome.ui.main.MainScreen
 import com.motion.hydropome.ui.main.MainViewModel
+import com.motion.hydropome.ui.marketplace.MarketplaceScreen
+import com.motion.hydropome.ui.marketplace.MarketplaceViewModel
+import com.motion.hydropome.ui.monitorplants.MonitorPlantsScreen
+import com.motion.hydropome.ui.monitorplants.MonitorPlantsViewModel
 import com.motion.hydropome.ui.onboarding.OnboardingScreen
 import com.motion.hydropome.ui.onboarding.OnboardingViewModel
 import com.motion.hydropome.ui.personalization.PersonalizationScreen
 import com.motion.hydropome.ui.personalization.PersonalizationViewModel
+import com.motion.hydropome.ui.profile.ProfileScreen
+import com.motion.hydropome.ui.profile.ProfileViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
@@ -100,6 +106,15 @@ fun AppNavHost() {
             val homeViewModel: HomeViewModel = hiltViewModel()
             val homeUiState by homeViewModel.uiState.collectAsState()
 
+            val monitorPlantsViewModel: MonitorPlantsViewModel = hiltViewModel()
+            val monitorPlantsUiState by monitorPlantsViewModel.uiState.collectAsState()
+
+            val marketplaceViewModel: MarketplaceViewModel = hiltViewModel()
+            val marketplaceUiState by marketplaceViewModel.uiState.collectAsState()
+
+            val profileViewModel: ProfileViewModel = hiltViewModel()
+            val profileUiState by profileViewModel.uiState.collectAsState()
+
             MainScreen(
                 uiState = mainUiState,
                 homeScreen = {
@@ -108,6 +123,21 @@ fun AppNavHost() {
                         onUserRefresh = homeViewModel::refreshUser,
                         onSearchQueryChange = homeViewModel::changeSearchQuery,
                         onPlantsRefresh = homeViewModel::refreshPlants
+                    )
+                },
+                monitorPlantsScreen = {
+                    MonitorPlantsScreen(
+                        uiState = monitorPlantsUiState
+                    )
+                },
+                marketplaceScreen = {
+                    MarketplaceScreen(
+                        uiState = marketplaceUiState
+                    )
+                },
+                profileScreen = {
+                    ProfileScreen(
+                        uiState = profileUiState
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex

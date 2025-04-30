@@ -33,6 +33,9 @@ import com.motion.hydropome.ui.theme.AppTheme
 fun MainScreen(
     uiState: MainUiState,
     homeScreen: @Composable () -> Unit,
+    monitorPlantsScreen: @Composable () -> Unit,
+    marketplaceScreen: @Composable () -> Unit,
+    profileScreen: @Composable () -> Unit,
     onSelectedNavItemChange: (Int) -> Unit
 ) {
     Scaffold { innerPadding ->
@@ -46,6 +49,9 @@ fun MainScreen(
             ) {
                 when (uiState.selectedIndex) {
                     0 -> homeScreen()
+                    1 -> monitorPlantsScreen()
+                    2 -> marketplaceScreen()
+                    3 -> profileScreen()
                 }
             }
             HorizontalDivider(
@@ -113,6 +119,9 @@ private fun MainScreenPreview() {
         MainScreen(
             uiState = MainUiState(),
             homeScreen = {},
+            monitorPlantsScreen = {},
+            marketplaceScreen = {},
+            profileScreen = {},
             onSelectedNavItemChange = {}
         )
     }
