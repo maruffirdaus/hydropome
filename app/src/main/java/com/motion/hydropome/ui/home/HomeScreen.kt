@@ -49,6 +49,7 @@ import com.motion.hydropome.R
 import com.motion.hydropome.ui.common.component.CountdownTimer
 import com.motion.hydropome.ui.common.component.FlashCard
 import com.motion.hydropome.ui.common.component.HomeCard
+import com.motion.hydropome.ui.common.component.PopupBerhasil
 import com.motion.hydropome.ui.common.component.TimeBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
@@ -245,6 +246,7 @@ fun HomeScreen(
                         )
                     }
                 }
+
             }
         }
     }
