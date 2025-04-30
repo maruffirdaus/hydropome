@@ -19,5 +19,8 @@ sealed class AppDestination {
     data object Personalization : AppDestination()
 
     @Serializable
+    data object Qris : AppDestination()
+
+    @Serializable
     data object Main : AppDestination()
 }

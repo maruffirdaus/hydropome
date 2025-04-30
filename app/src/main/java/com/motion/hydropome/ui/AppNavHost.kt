@@ -23,6 +23,8 @@ import com.motion.hydropome.ui.personalization.PersonalizationScreen
 import com.motion.hydropome.ui.personalization.PersonalizationViewModel
 import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
+import com.motion.hydropome.ui.qris.QRISScreen
+import com.motion.hydropome.ui.qris.QrisViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
@@ -34,7 +36,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Splash
+        startDestination = AppDestination.Qris
     ) {
         composable<AppDestination.Splash> {
             val viewModel: SplashViewModel = hiltViewModel()
@@ -95,6 +97,17 @@ fun AppNavHost() {
                 onPreviousPage = viewModel::decrementPage,
                 onSelectedAnswerChange = viewModel::changeSelectedAnswers,
                 onSavePreferences = viewModel::savePreferences,
+                navController = navController
+            )
+        }
+        composable<AppDestination.Qris> {
+            val viewModel: QrisViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            QRISScreen(
+                uiState = uiState,
+                onStartCountdown = viewModel::startCountdown,
+                onSetLoadingState = viewModel::setLoadingState,
                 navController = navController
             )
         }
