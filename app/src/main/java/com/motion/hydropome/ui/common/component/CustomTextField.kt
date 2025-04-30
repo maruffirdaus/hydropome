@@ -100,17 +100,20 @@ fun CustomTextField(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (value.isNotBlank()) {
+                        Box(
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            if (value.isEmpty()) {
+                                Text(
+                                    text = placeholder,
+                                    color = Color(0xFF8391A1),
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.W400,
+                                    overflow = TextOverflow.Ellipsis,
+                                    maxLines = 1
+                                )
+                            }
                             innerTextField()
-                        } else {
-                            Text(
-                                text = placeholder,
-                                color = Color(0xFF8391A1),
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.W400,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
-                            )
                         }
                         if (isPassword) {
                             Box(

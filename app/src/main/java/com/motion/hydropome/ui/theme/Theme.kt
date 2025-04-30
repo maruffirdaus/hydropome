@@ -12,7 +12,7 @@ fun AppTheme(
     MaterialTheme(
         colorScheme = lightColorScheme(
             primary = AppColors.primary,
-            surface = Color(0xFFFFFFFF)
+            background = Color(0xFFFFFFFF)
         ),
         typography = Typography,
         content = content
