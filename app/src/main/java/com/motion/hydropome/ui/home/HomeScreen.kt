@@ -46,7 +46,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.R
+import com.motion.hydropome.ui.common.component.CountdownTimer
 import com.motion.hydropome.ui.common.component.HomeCard
+import com.motion.hydropome.ui.common.component.TimeBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
 
@@ -184,6 +186,19 @@ fun HomeScreen(
                             durationLabel = item.duration,
                             modifier = Modifier.fillMaxWidth()
                         )
+                    }
+                }
+            }
+            //flashSale
+            item{
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    Text("Starter  Kit Flash Sale \uD83D\uDD25", fontSize = 16.sp, fontWeight = FontWeight.W700, modifier = Modifier.padding(20.dp))
+                    Row(
+                        modifier = Modifier.padding(top = 20.dp)
+                    ){
+                        CountdownTimer(10,10,10)
                     }
                 }
             }
