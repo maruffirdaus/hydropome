@@ -28,6 +28,8 @@ import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
 import com.motion.hydropome.ui.qris.QRISScreen
 import com.motion.hydropome.ui.qris.QrisViewModel
+import com.motion.hydropome.ui.receipt.ReceiptScreen
+import com.motion.hydropome.ui.receipt.ReceiptViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
@@ -42,7 +44,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Splash
+        startDestination = AppDestination.Receipt
     ) {
         composable<AppDestination.Splash> {
             val viewModel: SplashViewModel = hiltViewModel()
@@ -77,6 +79,18 @@ fun AppNavHost() {
                 navController = navController
             )
         }
+
+        composable<AppDestination.Receipt> {
+            val viewModel: ReceiptViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            ReceiptScreen(
+                uiState = uiState,
+                navController = navController,
+                onLoadData = viewModel::loadUserAndReceipt
+            )
+        }
+
 
         composable<AppDestination.Register> {
             val viewModel: RegisterViewModel = hiltViewModel()
