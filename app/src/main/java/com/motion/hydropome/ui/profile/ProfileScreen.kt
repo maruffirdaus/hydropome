@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -71,6 +72,7 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+
                         .padding(top = 30.dp, start = 20.dp, end = 20.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -110,8 +112,8 @@ fun ProfileScreen(
 
                     CustomButton(
                         text = "Edit Profile",
-                        onClick = {}
-                    )
+                        onClick = {},
+                        modifier = Modifier.offset(y = 35.dp)                    )
                 }
             }
 

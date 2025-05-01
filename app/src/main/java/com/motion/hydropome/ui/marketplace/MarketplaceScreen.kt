@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -83,7 +84,8 @@ fun MarketplaceScreen(
                         color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
                             .padding(start = 10.dp)
-                            .padding(top = 40.dp),
+                            .padding(top = 40.dp)
+                            .offset(y = -25.dp),
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.width(20.dp))
@@ -93,10 +95,12 @@ fun MarketplaceScreen(
                             .wrapContentWidth()
                             .clip(RoundedCornerShape(10.dp))
                             .padding(top = 45.dp)
-                            .padding(start = 28.dp),
+                            .padding(start = 28.dp)
+                            .offset(y = -25.dp)
+                        ,
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF179778))
                     ) {
-                        Row {
+                        Row{
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 contentDescription = "Add",

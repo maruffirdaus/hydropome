@@ -93,7 +93,6 @@ fun ProfileOptionItem(
             .clip(RoundedCornerShape(16.dp))
             .background(Color.White)
             .clickable { onClick() }
-            .shadow(4.dp, RoundedCornerShape(16.dp))
             .padding(16.dp)
     ) {
         Row(
