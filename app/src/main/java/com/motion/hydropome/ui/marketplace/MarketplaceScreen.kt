@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -17,6 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -41,9 +45,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.motion.hydropome.ui.common.component.ProductCard
 import com.motion.hydropome.ui.common.component.SearchBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.marketplace.component.CategoryRow
+import com.motion.hydropome.ui.marketplace.dummy.allItems
 import com.motion.hydropome.ui.theme.AppColors
 import com.motion.hydropome.ui.theme.AppTheme
 
@@ -54,6 +60,7 @@ fun MarketplaceScreen(
     val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     var selectedCategory by remember { mutableStateOf("Starter Kit") }
     val categories = listOf("Starter Kit", "Dari Customer", "Media Tanam")
+    val filteredItems = allItems.filter { it.type == selectedCategory }
     Column {
         Box(
             modifier = Modifier
@@ -90,7 +97,7 @@ fun MarketplaceScreen(
                     )
                     Spacer(modifier = Modifier.width(20.dp))
                     Button(
-                        onClick = { /* your click logic here */ },
+                        onClick = { },
                         modifier = Modifier
                             .wrapContentWidth()
                             .clip(RoundedCornerShape(10.dp))
@@ -153,7 +160,7 @@ fun MarketplaceScreen(
                             Icon(
                                 imageVector = Icons.Default.ShoppingCart,
                                 contentDescription = "Add",
-                                tint = Color.Black // Use white to show on black background
+                                tint = Color.Black
                             )
                         }
                     }
@@ -175,12 +182,29 @@ fun MarketplaceScreen(
 
             }
             //card
-            Row(
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
                 modifier = Modifier
-                    .padding(top = 240.dp)
-                    .fillMaxWidth()
-            ){
-
+                    .padding(top = 300.dp)
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 28.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(filteredItems) { item ->
+                    ProductCard(
+                        image = item.imageRes,
+                        title = item.title,
+                        category = item.type,
+                        regularPrice = item.priceLabel,
+                        discountedPrice = item.discountLabel,
+                        onClick = {  }
+                    )
+                }
             }
         }
     }
