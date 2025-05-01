@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
+import com.motion.hydropome.ui.jualBarang.SellProductViewModel
 import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
 import com.motion.hydropome.ui.main.MainScreen
@@ -39,7 +40,7 @@ import com.motion.hydropome.ui.splash.SplashViewModel
 import io.sanghun.compose.video.RepeatMode
 import io.sanghun.compose.video.VideoPlayer
 import io.sanghun.compose.video.uri.VideoPlayerMediaItem
-
+import com.motion.hydropome.ui.jualBarang.FormJualBarangScreen
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
@@ -134,6 +135,22 @@ fun AppNavHost() {
             )
         }
 
+        composable<AppDestination.JualBarang> {
+            val viewModel: SellProductViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            FormJualBarangScreen(
+                uiState = uiState,
+                onProductNameChange = viewModel::onProductNameChange,
+                onCategoryChange = viewModel::onCategoryChange,
+                onPriceChange = viewModel::onPriceChange,
+                onContactChange = viewModel::onContactChange,
+                onDescriptionChange = viewModel::onDescriptionChange,
+                onSubmit = viewModel::submitProduct
+            )
+        }
+
+
         composable<AppDestination.Main> {
             val mainViewModel: MainViewModel = hiltViewModel()
             val mainUiState by mainViewModel.uiState.collectAsState()
@@ -176,7 +193,8 @@ fun AppNavHost() {
                 },
                 profileScreen = {
                     ProfileScreen(
-                        uiState = profileUiState
+                        uiState = profileUiState,
+                        onGetUserData = profileViewModel::getUserData
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex
