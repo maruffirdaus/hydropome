@@ -147,7 +147,10 @@ fun AppNavHost() {
                 },
                 monitorPlantsScreen = {
                     MonitorPlantsScreen(
-                        uiState = monitorPlantsUiState
+                        uiState = monitorPlantsUiState,
+                        onPlantProgressesRefresh = monitorPlantsViewModel::refreshPlantProgresses,
+                        onSearchQueryChange = monitorPlantsViewModel::changeSearchQuery,
+                        navController = navController
                     )
                 },
                 marketplaceScreen = {
@@ -185,6 +188,7 @@ fun AppNavHost() {
                     )
                 },
                 onPlantRefresh = viewModel::refreshPlant,
+                onStartPlant = viewModel::addPlantProgress,
                 navController = navController
             )
         }

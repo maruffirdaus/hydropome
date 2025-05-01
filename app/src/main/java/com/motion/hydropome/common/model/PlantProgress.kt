@@ -1,0 +1,25 @@
+package com.motion.hydropome.common.model
+
+data class PlantProgress(
+    val id: String = "",
+    val plant: Plant = Plant(),
+    val day: Int = 0,
+    val tasks: List<Boolean> = listOf()
+) {
+    fun toFirestore(): Map<String, Any> = mapOf(
+        "id" to id,
+        "plantId" to plant.id,
+        "day" to day,
+        "tasks" to tasks
+    )
+
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun fromFirestore(data: Map<String, Any>, plant: Plant): PlantProgress = PlantProgress(
+            id = data["id"] as String,
+            plant = plant,
+            day = (data["day"] as Long).toInt(),
+            tasks = data["tasks"] as List<Boolean>
+        )
+    }
+}

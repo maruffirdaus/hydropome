@@ -61,6 +61,7 @@ fun PlantDetailsScreen(
     uiState: PlantDetailsUiState,
     videoPlayer: @Composable (String) -> Unit,
     onPlantRefresh: (String) -> Unit,
+    onStartPlant: (() -> Unit) -> Unit,
     navController: NavController
 ) {
     LaunchedEffect(Unit) {
@@ -68,16 +69,23 @@ fun PlantDetailsScreen(
     }
 
     Scaffold { innerPadding ->
-        if (uiState.isLoading) {
+        AnimatedVisibility(
+            visible = uiState.isLoading,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
             }
-        } else {
+        }
+        AnimatedVisibility(
+            visible = !uiState.isLoading,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
             uiState.plant?.let { plant ->
                 Box(
                     modifier = Modifier.fillMaxSize()
@@ -96,7 +104,7 @@ fun PlantDetailsScreen(
                                 .fillMaxWidth()
                                 .height(innerPadding.calculateTopPadding() + 256.dp)
                                 .clip(BottomArcShape()),
-                            placeholder = painterResource(R.drawable.onboarding_1),
+                            placeholder = painterResource(R.drawable.img_onboarding_1),
                             contentScale = ContentScale.Crop
                         )
                     }
@@ -110,7 +118,10 @@ fun PlantDetailsScreen(
                         Box {
                             BackButton(
                                 onClick = {
-                                    navController.popBackStack(AppDestination.PlantDetails(plantId), true)
+                                    navController.popBackStack(
+                                        AppDestination.PlantDetails(plantId),
+                                        true
+                                    )
                                 }
                             )
                             Spacer(Modifier.height(256.dp))
@@ -187,8 +198,8 @@ fun PlantDetailsScreen(
                         val annotatedString = buildAnnotatedString {
                             plant.toolsAndMaterials.forEachIndexed { index, content ->
                                 append("${index + 1}. ")
-                                append(content["title"])
-                                content["description"]?.let { description ->
+                                append(content.title)
+                                content.description?.let { description ->
                                     withStyle(
                                         style = SpanStyle(
                                             color = Color(0xFF757575),
@@ -249,7 +260,14 @@ fun PlantDetailsScreen(
                         Spacer(Modifier.height(48.dp))
                         CustomButton(
                             text = "Mulai Tanam dan Pantau",
-                            onClick = {},
+                            onClick = {
+                                onStartPlant {
+                                    navController.popBackStack(
+                                        AppDestination.PlantDetails(plantId),
+                                        true
+                                    )
+                                }
+                            },
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
@@ -272,29 +290,30 @@ fun PlantDetailsScreenPreview() {
                     duration = "3-5",
                     description = "Selada merupakan salah satu tanaman paling populer dalam budidaya hidroponik karena pertumbuhannya yang cepat dan perawatannya yang mudah. Tanaman ini cocok untuk pemula karena tidak memerlukan banyak nutrisi khusus atau perawatan intensif. Selada tumbuh subur di sistem hidroponik seperti NFT (Nutrient Film Technique) dan dapat dipanen dalam waktu 3–5 minggu setelah tanam",
                     toolsAndMaterials = listOf(
-                        mapOf(
-                            "title" to "Wadah atau Bak Tanam",
-                            "description" to "Tempat air nutrisi dan tanaman diletakkan."
+                        Plant.ToolMaterial(
+                            title = "Wadah atau Bak Tanam",
+                            description = "Tempat air nutrisi dan tanaman diletakkan."
                         ),
-                        mapOf(
-                            "title" to "Net Pot / Pot kecil berlubang",
-                            "description" to "Untuk menahan tanaman dan media tanam."
+                        Plant.ToolMaterial(
+                            title = "Net Pot / Pot kecil berlubang",
+                            description = "Untuk menahan tanaman dan media tanam."
                         ),
-                        mapOf(
-                            "title" to "Spons/Rockwool",
-                            "description" to "Media tanam tempat benih tumbuh."
+                        Plant.ToolMaterial(
+                            title = "Spons/Rockwool",
+                            description = "Media tanam tempat benih tumbuh."
                         ),
-                        mapOf(
-                            "title" to "Benih selada"
+                        Plant.ToolMaterial(
+                            title = "Benih selada"
                         ),
-                        mapOf(
-                            "title" to "Air Bersih"
+                        Plant.ToolMaterial(
+                            title = "Air Bersih"
                         )
                     )
                 ),
             ),
             videoPlayer = {},
             onPlantRefresh = {},
+            onStartPlant = {},
             navController = rememberNavController()
         )
     }

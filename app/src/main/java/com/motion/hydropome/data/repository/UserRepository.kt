@@ -15,12 +15,12 @@ class UserRepository @Inject constructor(
         try {
             val user = auth.currentUser
             if (user != null) {
-                val documentSnapshot = firestore.collection("users")
+                val userSnapshot = firestore.collection("users")
                     .document(user.uid)
                     .get()
                     .await()
-                if (documentSnapshot.exists()) {
-                    return Result.success(documentSnapshot.toObject(User::class.java))
+                if (userSnapshot.exists()) {
+                    return Result.success(userSnapshot.toObject(User::class.java))
                 }
             }
             return Result.success(null)

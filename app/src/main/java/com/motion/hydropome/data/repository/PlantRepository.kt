@@ -10,10 +10,10 @@ class PlantRepository @Inject constructor(
 ) {
     suspend fun getPlants(): Result<List<Plant>> {
         return try {
-            val querySnapshot = firestore.collection("plants")
+            val plantsSnapshot = firestore.collection("plants")
                 .get()
                 .await()
-            val plants = querySnapshot.documents.mapNotNull { document ->
+            val plants = plantsSnapshot.documents.mapNotNull { document ->
                 document.data?.let {
                     Plant.fromFirestore(it)
                 }
@@ -24,13 +24,13 @@ class PlantRepository @Inject constructor(
         }
     }
 
-    suspend fun getPlant(plantId: String): Result<Plant> {
+    suspend fun getPlant(id: String): Result<Plant> {
         try {
-            val documentSnapshot = firestore.collection("plants")
-                .document(plantId)
+            val plantSnapshot = firestore.collection("plants")
+                .document(id)
                 .get()
                 .await()
-            documentSnapshot.data?.let {
+            plantSnapshot.data?.let {
                 val plant = Plant.fromFirestore(it)
                 return Result.success(plant)
             }

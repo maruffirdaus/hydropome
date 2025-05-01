@@ -65,9 +65,9 @@ val questions = listOf(
             id = "5",
             title = "Berapa luas area tanam yang kamu miliki?",
             answerImages = listOf(
-                R.drawable.answer_image_0,
-                R.drawable.answer_image_1,
-                R.drawable.answer_image_2
+                R.drawable.img_land_0,
+                R.drawable.img_land_1,
+                R.drawable.img_land_2
             ),
             answers = listOf(
                 "< 1 m²",

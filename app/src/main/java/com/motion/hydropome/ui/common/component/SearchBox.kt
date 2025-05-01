@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
@@ -36,6 +37,8 @@ fun SearchBox(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
+    containerColor: Color = Color(0xFFF4F5F7),
+    isShadowEnabled: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     BasicTextField(
@@ -55,8 +58,20 @@ fun SearchBox(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp)
+                    .let {
+                        if (isShadowEnabled) {
+                            it.shadow(
+                                elevation = 8.dp,
+                                shape = RoundedCornerShape(12.dp),
+                                ambientColor = Color.Black.copy(alpha = 0.4f),
+                                spotColor = Color.Black.copy(alpha = 0.4f)
+                            )
+                        } else {
+                            it
+                        }
+                    }
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFFF4F5F7))
+                    .background(containerColor)
                     .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

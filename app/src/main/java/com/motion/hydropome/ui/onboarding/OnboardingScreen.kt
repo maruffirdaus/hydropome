@@ -53,8 +53,8 @@ fun OnboardingScreen(
         ) {
             Column {
                 val images = listOf(
-                    R.drawable.onboarding_0,
-                    R.drawable.onboarding_1
+                    R.drawable.img_onboarding_0,
+                    R.drawable.img_onboarding_1
                 )
                 val headlines = listOf(
                     "Tanam Sayur Segar dari Rumah Tanpa Ribet! \uD83E\uDD55\uD83C\uDF45",
