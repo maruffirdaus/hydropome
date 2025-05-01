@@ -191,7 +191,8 @@ fun AppNavHost() {
                 },
                 profileScreen = {
                     ProfileScreen(
-                        uiState = profileUiState
+                        uiState = profileUiState,
+                        onGetUserData = profileViewModel::getUserData
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex
