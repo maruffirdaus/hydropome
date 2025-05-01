@@ -17,16 +17,27 @@ import com.motion.hydropome.ui.receipt.component.ReceiptCard
 
 import com.motion.hydropome.ui.theme.AppTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
 
 @Composable
-fun ReceiptScreen() {
+fun ReceiptScreen(
+    uiState: ReceiptUiState,
+    navController: NavController,
+    onLoadData: () -> Unit
+) {
     val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
 
+    LaunchedEffect(Unit) {
+        onLoadData()
+    }
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
         Column {
             Box(
@@ -61,11 +72,11 @@ fun ReceiptScreen() {
         }
 
         ReceiptCard(
-            total = 35000,
-            nama = "Hydropome",
-            metode = "QRIS",
-            tanggal = "1 mei 2025",
-            waktu = "12.01 PM",
+            total = uiState.total,
+            nama = uiState.nama,
+            metode = uiState.metode,
+            tanggal = uiState.tanggal,
+            waktu = uiState.waktu,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = statusBarHeight + 140.dp)
@@ -80,7 +91,15 @@ fun ReceiptScreen() {
 private fun ReceiptScreenPreview() {
     AppTheme {
         ReceiptScreen(
-
+            uiState = ReceiptUiState(
+                total = 35000,
+                nama = "Hydropome",
+                metode = "QRIS",
+                tanggal = "1 Mei 2025",
+                waktu = "12.01 PM"
+            ),
+            navController = rememberNavController(),
+            onLoadData = {}
         )
     }
 }
