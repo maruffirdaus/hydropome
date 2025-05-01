@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
 import com.motion.hydropome.ui.login.LoginScreen
@@ -21,6 +22,8 @@ import com.motion.hydropome.ui.onboarding.OnboardingScreen
 import com.motion.hydropome.ui.onboarding.OnboardingViewModel
 import com.motion.hydropome.ui.personalization.PersonalizationScreen
 import com.motion.hydropome.ui.personalization.PersonalizationViewModel
+import com.motion.hydropome.ui.plantdetails.PlantDetailsScreen
+import com.motion.hydropome.ui.plantdetails.PlantDetailsViewModel
 import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
 import com.motion.hydropome.ui.qris.QRISScreen
@@ -29,6 +32,9 @@ import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
 import com.motion.hydropome.ui.splash.SplashViewModel
+import io.sanghun.compose.video.RepeatMode
+import io.sanghun.compose.video.VideoPlayer
+import io.sanghun.compose.video.uri.VideoPlayerMediaItem
 
 @Composable
 fun AppNavHost() {
@@ -36,7 +42,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppDestination.Qris
+        startDestination = AppDestination.Splash
     ) {
         composable<AppDestination.Splash> {
             val viewModel: SplashViewModel = hiltViewModel()
@@ -135,7 +141,8 @@ fun AppNavHost() {
                         uiState = homeUiState,
                         onUserRefresh = homeViewModel::refreshUser,
                         onSearchQueryChange = homeViewModel::changeSearchQuery,
-                        onPlantsRefresh = homeViewModel::refreshPlants
+                        onPlantsRefresh = homeViewModel::refreshPlants,
+                        navController = navController
                     )
                 },
                 monitorPlantsScreen = {
@@ -154,6 +161,31 @@ fun AppNavHost() {
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex
+            )
+        }
+
+        composable<AppDestination.PlantDetails> {
+            val args = it.toRoute<AppDestination.PlantDetails>()
+
+            val viewModel: PlantDetailsViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            PlantDetailsScreen(
+                plantId = args.plantId,
+                uiState = uiState,
+                videoPlayer = { url ->
+                    VideoPlayer(
+                        mediaItems = listOf(
+                            VideoPlayerMediaItem.NetworkMediaItem(
+                                url = url
+                            )
+                        ),
+                        usePlayerController = false,
+                        repeatMode = RepeatMode.ONE
+                    )
+                },
+                onPlantRefresh = viewModel::refreshPlant,
+                navController = navController
             )
         }
     }

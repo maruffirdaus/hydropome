@@ -10,7 +10,7 @@ data class Plant(
     val duration: String = "",
     val description: String = "",
     val toolsAndMaterials: List<Map<String, String>> = listOf(),
-    val tutorialVideo: String = ""
+    val videoTutorial: String = ""
 ) {
     fun toFirestore(): Map<String, Any> = mapOf(
         "id" to id,
@@ -20,7 +20,7 @@ data class Plant(
         "duration" to duration,
         "description" to description,
         "toolsAndMaterials" to toolsAndMaterials,
-        "tutorialVideo" to tutorialVideo
+        "videoTutorial" to videoTutorial
     )
 
     companion object {
@@ -33,7 +33,7 @@ data class Plant(
             duration = data["duration"] as String,
             description = data["description"] as String,
             toolsAndMaterials = data["toolsAndMaterials"] as List<Map<String, String>>,
-            tutorialVideo = data["tutorialVideo"] as String
+            videoTutorial = data["videoTutorial"] as String
         )
     }
 }

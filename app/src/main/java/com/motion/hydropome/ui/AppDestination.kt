@@ -23,4 +23,7 @@ sealed class AppDestination {
 
     @Serializable
     data object Main : AppDestination()
+
+    @Serializable
+    data class PlantDetails(val plantId: String) : AppDestination()
 }

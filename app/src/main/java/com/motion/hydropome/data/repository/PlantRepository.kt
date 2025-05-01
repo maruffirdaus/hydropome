@@ -23,4 +23,20 @@ class PlantRepository @Inject constructor(
             Result.failure(e)
         }
     }
+
+    suspend fun getPlant(plantId: String): Result<Plant> {
+        try {
+            val documentSnapshot = firestore.collection("plants")
+                .document(plantId)
+                .get()
+                .await()
+            documentSnapshot.data?.let {
+                val plant = Plant.fromFirestore(it)
+                return Result.success(plant)
+            }
+            throw NoSuchElementException("Plant not found")
+        } catch (e: Exception) {
+            return Result.failure(e)
+        }
+    }
 }

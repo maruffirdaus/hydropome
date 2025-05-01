@@ -45,9 +45,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.R
 import com.motion.hydropome.common.model.Plant
 import com.motion.hydropome.common.type.Difficulty
+import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.common.component.SearchBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.home.component.RecommendationCard
@@ -59,7 +62,8 @@ fun HomeScreen(
     uiState: HomeUiState,
     onUserRefresh: () -> Unit,
     onSearchQueryChange: (String) -> Unit,
-    onPlantsRefresh: () -> Unit
+    onPlantsRefresh: () -> Unit,
+    navController: NavController
 ) {
     LaunchedEffect(Unit) {
         onUserRefresh()
@@ -185,6 +189,9 @@ fun HomeScreen(
                         image = plant.image,
                         title = plant.title,
                         difficulty = plant.difficulty,
+                        onClick = {
+                            navController.navigate(AppDestination.PlantDetails(plant.id))
+                        },
                         duration = plant.duration
                     )
                 }
@@ -236,7 +243,8 @@ private fun HomeScreenPreview() {
                 ),
                 onUserRefresh = {},
                 onSearchQueryChange = {},
-                onPlantsRefresh = {}
+                onPlantsRefresh = {},
+                navController = rememberNavController()
             )
         }
     }

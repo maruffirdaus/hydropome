@@ -1,7 +1,7 @@
 package com.motion.hydropome.ui.home.component
 
-
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,18 +41,20 @@ fun RecommendationCard(
     title: String,
     difficulty: Difficulty,
     duration: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .shadow(
                 elevation = 8.dp,
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(16.dp),
                 ambientColor = Color.Black.copy(alpha = 0.4f),
                 spotColor = Color.Black.copy(alpha = 0.4f)
             )
             .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFFFFFFFF))
+            .clickable(onClick = onClick)
             .padding(8.dp)
     ) {
         AsyncImage(
@@ -62,6 +64,7 @@ fun RecommendationCard(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(10.dp)),
+            placeholder = painterResource(R.drawable.onboarding_1),
             contentScale = ContentScale.Crop
         )
         Spacer(Modifier.height(8.dp))
@@ -79,9 +82,9 @@ fun RecommendationCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             val difficultyColor = when (difficulty) {
-                Difficulty.EASY -> AppColors.primary
-                Difficulty.MEDIUM -> Color(0xFFE56C3F)
-                Difficulty.HARD -> Color(0xFFC10101)
+                Difficulty.EASY -> AppColors.difficultyEasy
+                Difficulty.MEDIUM -> AppColors.difficultyMedium
+                Difficulty.HARD -> AppColors.difficultyHard
             }
 
             Box(
@@ -125,7 +128,8 @@ private fun RecommendationCardPreview() {
             image = "",
             title = "Selada Hidroponik",
             difficulty = Difficulty.EASY,
-            duration = "3-5"
+            duration = "3-5",
+            onClick = {}
         )
     }
 }
