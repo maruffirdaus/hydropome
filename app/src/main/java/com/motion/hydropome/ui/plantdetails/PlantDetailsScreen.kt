@@ -58,6 +58,7 @@ import com.motion.hydropome.ui.theme.AppTheme
 @Composable
 fun PlantDetailsScreen(
     plantId: String,
+    isStartPlantEnabled: Boolean,
     uiState: PlantDetailsUiState,
     videoPlayer: @Composable (String) -> Unit,
     onPlantRefresh: (String) -> Unit,
@@ -104,7 +105,6 @@ fun PlantDetailsScreen(
                                 .fillMaxWidth()
                                 .height(innerPadding.calculateTopPadding() + 256.dp)
                                 .clip(BottomArcShape()),
-                            placeholder = painterResource(R.drawable.img_onboarding_1),
                             contentScale = ContentScale.Crop
                         )
                     }
@@ -119,7 +119,7 @@ fun PlantDetailsScreen(
                             BackButton(
                                 onClick = {
                                     navController.popBackStack(
-                                        AppDestination.PlantDetails(plantId),
+                                        AppDestination.PlantDetails(plantId, isStartPlantEnabled),
                                         true
                                     )
                                 }
@@ -257,19 +257,24 @@ fun PlantDetailsScreen(
                                 fontWeight = FontWeight.W700
                             )
                         }
-                        Spacer(Modifier.height(48.dp))
-                        CustomButton(
-                            text = "Mulai Tanam dan Pantau",
-                            onClick = {
-                                onStartPlant {
-                                    navController.popBackStack(
-                                        AppDestination.PlantDetails(plantId),
-                                        true
-                                    )
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                        if (isStartPlantEnabled) {
+                            Spacer(Modifier.height(48.dp))
+                            CustomButton(
+                                text = "Mulai Tanam dan Pantau",
+                                onClick = {
+                                    onStartPlant {
+                                        navController.popBackStack(
+                                            AppDestination.PlantDetails(
+                                                plantId,
+                                                true
+                                            ),
+                                            true
+                                        )
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
                 }
             }
@@ -283,6 +288,7 @@ fun PlantDetailsScreenPreview() {
     AppTheme {
         PlantDetailsScreen(
             plantId = "",
+            isStartPlantEnabled = true,
             uiState = PlantDetailsUiState(
                 plant = Plant(
                     title = "Selada Hidroponik",

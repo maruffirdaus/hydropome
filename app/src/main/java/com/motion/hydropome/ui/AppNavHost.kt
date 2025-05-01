@@ -25,6 +25,8 @@ import com.motion.hydropome.ui.personalization.PersonalizationScreen
 import com.motion.hydropome.ui.personalization.PersonalizationViewModel
 import com.motion.hydropome.ui.plantdetails.PlantDetailsScreen
 import com.motion.hydropome.ui.plantdetails.PlantDetailsViewModel
+import com.motion.hydropome.ui.plantprogress.PlantProgressScreen
+import com.motion.hydropome.ui.plantprogress.PlantProgressViewModel
 import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
 import com.motion.hydropome.ui.qris.QRISScreen
@@ -207,6 +209,7 @@ fun AppNavHost() {
 
             PlantDetailsScreen(
                 plantId = args.plantId,
+                isStartPlantEnabled = args.isStartPlantEnabled,
                 uiState = uiState,
                 videoPlayer = { url ->
                     VideoPlayer(
@@ -221,6 +224,22 @@ fun AppNavHost() {
                 },
                 onPlantRefresh = viewModel::refreshPlant,
                 onStartPlant = viewModel::addPlantProgress,
+                navController = navController
+            )
+        }
+
+        composable<AppDestination.PlantProgress> {
+            val args = it.toRoute<AppDestination.PlantProgress>()
+
+            val viewModel: PlantProgressViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            PlantProgressScreen(
+                plantProgressId = args.plantProgressId,
+                uiState = uiState,
+                onPlantProgressRefresh = viewModel::refreshPlantProgress,
+                onTaskCompletionChange = viewModel::changeTaskCompletion,
+                onCompleteDay = viewModel::completeDay,
                 navController = navController
             )
         }

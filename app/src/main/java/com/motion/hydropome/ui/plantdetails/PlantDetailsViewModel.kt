@@ -45,7 +45,7 @@ class PlantDetailsViewModel @Inject constructor(
                 plantProgressRepository.addPlantProgress(
                     PlantProgress(
                         plant = plant,
-                        tasks = List(plant.tasksByDay[0].tasks.size) { false }
+                        taskStates = List(plant.tasksByDay[0].tasks.size) { false }
                     )
                 ).onSuccess {
                     onSuccess()
