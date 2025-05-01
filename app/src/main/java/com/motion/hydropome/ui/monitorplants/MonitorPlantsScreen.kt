@@ -54,6 +54,7 @@ import com.motion.hydropome.R
 import com.motion.hydropome.common.model.Plant
 import com.motion.hydropome.common.model.PlantProgress
 import com.motion.hydropome.common.type.Difficulty
+import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.common.component.SearchBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
@@ -183,7 +184,6 @@ fun MonitorPlantsScreen(
                                         .fillMaxHeight()
                                         .aspectRatio(1f)
                                         .clip(RoundedCornerShape(10.dp)),
-                                    placeholder = painterResource(R.drawable.img_onboarding_1),
                                     contentScale = ContentScale.Crop
                                 )
                                 Spacer(Modifier.width(12.dp))
@@ -248,7 +248,13 @@ fun MonitorPlantsScreen(
                                         .height(36.dp)
                                         .clip(RoundedCornerShape(12.dp))
                                         .background(AppColors.primary)
-                                        .clickable {},
+                                        .clickable {
+                                            navController.navigate(
+                                                AppDestination.PlantProgress(
+                                                    plantProgress.id
+                                                )
+                                            )
+                                        },
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(

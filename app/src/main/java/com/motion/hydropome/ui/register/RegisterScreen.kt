@@ -84,7 +84,7 @@ fun RegisterScreen(
                 )
                 Spacer(Modifier.height(40.dp))
                 Text(
-                    text = "Nama",
+                    text = "Nama Lengkap",
                     color = AppColors.text,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W700
@@ -93,7 +93,7 @@ fun RegisterScreen(
                 CustomTextField(
                     value = uiState.name,
                     onValueChange = onNameChange,
-                    placeholder = "Masukkan Nama",
+                    placeholder = "Masukkan Nama Lengkap",
                     errorMessage = uiState.nameErrorMessage
                 )
                 Spacer(Modifier.height(20.dp))

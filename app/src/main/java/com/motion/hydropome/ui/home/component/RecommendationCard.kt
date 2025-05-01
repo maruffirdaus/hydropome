@@ -64,7 +64,6 @@ fun RecommendationCard(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(10.dp)),
-            placeholder = painterResource(R.drawable.img_onboarding_1),
             contentScale = ContentScale.Crop
         )
         Spacer(Modifier.height(8.dp))

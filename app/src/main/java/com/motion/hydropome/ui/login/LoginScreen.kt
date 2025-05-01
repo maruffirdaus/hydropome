@@ -83,7 +83,7 @@ fun LoginScreen(
                 )
                 Spacer(Modifier.height(40.dp))
                 Text(
-                    text = "Selamat Datang Kembali Hydro....! \uD83C\uDF3F\uD83C\uDF43",
+                    text = "Selamat Datang Kembali HydropoMate! \uD83C\uDF3F\uD83C\uDF43",
                     color = AppColors.text,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.W700

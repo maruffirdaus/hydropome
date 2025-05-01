@@ -47,11 +47,12 @@ class PlantProgressRepository @Inject constructor(
                 .await()
             plantProgressSnapshot.data?.let { data ->
                 val plantSnapshot = firestore.collection("plants")
-                    .document(id)
+                    .document(data["plantId"] as String)
                     .get()
                     .await()
                 plantSnapshot.data?.let { plant ->
-                    val plantProgress = PlantProgress.fromFirestore(data, Plant.fromFirestore(plant))
+                    val plantProgress =
+                        PlantProgress.fromFirestore(data, Plant.fromFirestore(plant))
                     return Result.success(plantProgress)
                 }
                 throw NoSuchElementException("Plant not found")
@@ -97,5 +98,18 @@ class PlantProgressRepository @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    suspend fun advancePlantProgress(plantProgress: PlantProgress): Result<Unit> {
+        val copy = plantProgress.copy(
+            day = plantProgress.day + 1,
+            taskStates = List(plantProgress.plant.tasksByDay[plantProgress.day + 1].tasks.size) { false }
+        )
+        updatePlantProgress(copy).onSuccess {
+            return Result.success(Unit)
+        }.onFailure {
+            return Result.failure(it)
+        }
+        return Result.failure(Exception("Failed to advance plant progress"))
     }
 }
