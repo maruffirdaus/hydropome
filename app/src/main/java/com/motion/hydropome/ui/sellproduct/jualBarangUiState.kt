@@ -1,4 +1,4 @@
-package com.motion.hydropome.ui.jualBarang
+package com.motion.hydropome.ui.sellproduct
 
 data class SellProductUiState(
     val productName: String = "",

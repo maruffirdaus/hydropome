@@ -112,4 +112,19 @@ class PlantProgressRepository @Inject constructor(
         }
         return Result.failure(Exception("Failed to advance plant progress"))
     }
+
+    suspend fun deletePlantProgress(id: String): Result<Unit> {
+        return try {
+            val userId = auth.currentUser?.uid ?: throw IllegalStateException("User not logged in")
+            firestore.collection("users")
+                .document(userId)
+                .collection("plantProgresses")
+                .document(id)
+                .delete()
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

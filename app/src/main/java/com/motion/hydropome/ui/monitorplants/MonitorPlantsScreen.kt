@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,6 +54,7 @@ import com.motion.hydropome.common.model.Plant
 import com.motion.hydropome.common.model.PlantProgress
 import com.motion.hydropome.common.type.Difficulty
 import com.motion.hydropome.ui.AppDestination
+import com.motion.hydropome.ui.common.component.CustomButton
 import com.motion.hydropome.ui.common.component.SearchBox
 import com.motion.hydropome.ui.common.shape.BottomArcShape
 import com.motion.hydropome.ui.theme.AppColors
@@ -242,28 +242,21 @@ fun MonitorPlantsScreen(
                                     }
                                 }
                                 Spacer(Modifier.weight(1f))
-                                Box(
-                                    modifier = Modifier
-                                        .width(64.dp)
-                                        .height(36.dp)
-                                        .clip(RoundedCornerShape(12.dp))
-                                        .background(AppColors.primary)
-                                        .clickable {
-                                            navController.navigate(
-                                                AppDestination.PlantProgress(
-                                                    plantProgress.id
-                                                )
+                                CustomButton(
+                                    text = "Pantau",
+                                    onClick = {
+                                        navController.navigate(
+                                            AppDestination.PlantProgress(
+                                                plantProgress.id
                                             )
-                                        },
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = "Pantau",
-                                        color = Color(0xFFE8F5F2),
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.W600
-                                    )
-                                }
+                                        )
+                                    },
+                                    width = 64.dp,
+                                    height = 36.dp,
+                                    radius = 12.dp,
+                                    paddingHorizontal = 0.dp,
+                                    fontSize = 12.sp
+                                )
                             }
                             if (index + 1 < uiState.plantProgresses.size) {
                                 Spacer(Modifier.height(16.dp))

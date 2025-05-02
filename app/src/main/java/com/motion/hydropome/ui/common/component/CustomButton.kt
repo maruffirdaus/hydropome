@@ -5,14 +5,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.ui.theme.AppColors
@@ -22,25 +26,37 @@ fun CustomButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    width: Dp? = null,
+    height: Dp = 48.dp,
+    radius: Dp = 12.dp,
+    paddingHorizontal: Dp = 16.dp,
+    fontSize: TextUnit = 16.sp,
     isEnabled: Boolean = true
 ) {
     Box(
         modifier = modifier
-            .height(48.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(AppColors.primary.copy(alpha = if (isEnabled) 1f else 0.5f))
+            .let {
+                if (width != null) {
+                    it.width(width)
+                } else {
+                    it
+                }
+            }
+            .height(height)
+            .clip(RoundedCornerShape(radius))
+            .background(if (isEnabled) AppColors.primary else Color(0xFFB5B5B5))
             .clickable(
                 enabled = isEnabled,
                 onClick = onClick
             )
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = paddingHorizontal)
         ,
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
-            color = AppColors.textLight.copy(alpha = if (isEnabled) 1f else 0.5f),
-            fontSize = 16.sp,
+            color = AppColors.textLight,
+            fontSize = fontSize,
             fontWeight = FontWeight.W600
         )
     }

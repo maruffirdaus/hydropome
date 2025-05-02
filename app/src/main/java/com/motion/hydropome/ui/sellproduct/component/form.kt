@@ -1,4 +1,4 @@
-package com.motion.hydropome.ui.jualBarang.component
+package com.motion.hydropome.ui.sellproduct.component
 
 
 import androidx.compose.foundation.background

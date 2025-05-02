@@ -1,7 +1,8 @@
 package com.motion.hydropome.ui.profile
 
+import com.motion.hydropome.common.model.User
+
 data class ProfileUiState(
-    val isLoading: Boolean = false,
-    val userName: String = "",
-    val userEmail: String = ""
+    val user: User? = null,
+    val isLoading: Boolean = false
 )

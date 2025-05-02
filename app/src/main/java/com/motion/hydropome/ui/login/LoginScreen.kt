@@ -47,7 +47,10 @@ fun LoginScreen(
     uiState: LoginUiState,
     onNameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onLogin: (() -> Unit) -> Unit,
+    onLogin: (
+        onSuccessWithFilledPreferences: () -> Unit,
+        onSuccessWithUnfilledPreferences: () -> Unit
+    ) -> Unit,
     navController: NavController
 ) {
     Scaffold { innerPadding ->
@@ -121,11 +124,18 @@ fun LoginScreen(
                 CustomButton(
                     text = "Masuk",
                     onClick = {
-                        onLogin {
-                            navController.navigate(AppDestination.Personalization) {
-                                popUpTo(0)
+                        onLogin(
+                            {
+                                navController.navigate(AppDestination.Main) {
+                                    popUpTo(0)
+                                }
+                            },
+                            {
+                                navController.navigate(AppDestination.Personalization) {
+                                    popUpTo(0)
+                                }
                             }
-                        }
+                        )
                     },
                     modifier = Modifier.fillMaxWidth(),
                     isEnabled = uiState.isFormValid
@@ -168,7 +178,7 @@ private fun LoginScreenPreview() {
             uiState = LoginUiState(),
             onNameChange = {},
             onPasswordChange = {},
-            onLogin = {},
+            onLogin = { _, _ -> },
             navController = rememberNavController()
         )
     }

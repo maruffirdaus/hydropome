@@ -16,10 +16,10 @@ data class PlantProgress(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun fromFirestore(data: Map<String, Any>, plant: Plant): PlantProgress = PlantProgress(
-            id = data["id"] as String,
+            id = data["id"] as? String ?: "",
             plant = plant,
-            day = (data["day"] as Long).toInt(),
-            taskStates = data["taskStates"] as List<Boolean>
+            day = (data["day"] as? Long ?: 0).toInt(),
+            taskStates = data["taskStates"] as? List<Boolean> ?: emptyList()
         )
     }
 }

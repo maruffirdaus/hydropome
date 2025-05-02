@@ -1,4 +1,4 @@
-package com.motion.hydropome.ui.jualBarang
+package com.motion.hydropome.ui.sellproduct
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.motion.hydropome.ui.common.component.BackButton
 import com.motion.hydropome.ui.common.shape.BottomArcShape
-import com.motion.hydropome.ui.jualBarang.component.PostAndSellButton
-import com.motion.hydropome.ui.jualBarang.component.SellProductForm
+import com.motion.hydropome.ui.sellproduct.component.PostAndSellButton
+import com.motion.hydropome.ui.sellproduct.component.SellProductForm
 import com.motion.hydropome.ui.theme.AppColors
 
 @Composable
