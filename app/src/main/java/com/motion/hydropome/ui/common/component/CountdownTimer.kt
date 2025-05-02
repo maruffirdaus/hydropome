@@ -1,4 +1,5 @@
 package com.motion.hydropome.ui.common.component
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,7 +42,7 @@ fun CountdownTimer(hours: Int, minutes: Int, seconds: Int) {
 }
 
 @Composable
-fun TimeBox(unit: Int) {
+private fun TimeBox(unit: Int) {
     Box(
         modifier = Modifier
             .size(40.dp)

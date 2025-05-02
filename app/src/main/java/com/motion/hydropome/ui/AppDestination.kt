@@ -19,16 +19,7 @@ sealed class AppDestination {
     data object Personalization : AppDestination()
 
     @Serializable
-    data object Qris : AppDestination()
-
-    @Serializable
     data object Main : AppDestination()
-
-    @Serializable
-    data object Receipt : AppDestination()
-
-    @Serializable
-    data object JualBarang : AppDestination()
 
     @Serializable
     data class PlantDetails(
@@ -38,4 +29,13 @@ sealed class AppDestination {
 
     @Serializable
     data class PlantProgress(val plantProgressId: String) : AppDestination()
+
+    @Serializable
+    data object SellProduct : AppDestination()
+
+    @Serializable
+    data object Qris : AppDestination()
+
+    @Serializable
+    data object Receipt : AppDestination()
 }

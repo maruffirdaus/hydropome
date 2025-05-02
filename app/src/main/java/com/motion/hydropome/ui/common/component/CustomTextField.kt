@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -52,6 +53,8 @@ fun CustomTextField(
     placeholder: String,
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
+    isSingleLine: Boolean = true,
+    minLines: Int = 1,
     errorMessage: String? = null
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -75,7 +78,8 @@ fun CustomTextField(
         } else {
             KeyboardOptions.Default
         },
-        singleLine = true,
+        singleLine = isSingleLine,
+        minLines = minLines,
         visualTransformation = if (!isPassword || isPasswordVisible) {
             VisualTransformation.None
         } else {
@@ -88,7 +92,7 @@ fun CustomTextField(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp)
+                        .defaultMinSize(minHeight = 48.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .border(
                             width = 1.dp,
@@ -102,7 +106,7 @@ fun CustomTextField(
                             shape = RoundedCornerShape(12.dp)
                         )
                         .background(Color(0xFFF7F8F9))
-                        .padding(horizontal = 16.dp),
+                        .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -112,6 +116,13 @@ fun CustomTextField(
                         if (value.isEmpty()) {
                             Text(
                                 text = placeholder,
+                                modifier = Modifier.let {
+                                    if (isSingleLine) {
+                                        it
+                                    } else {
+                                        it.align(Alignment.TopStart)
+                                    }
+                                },
                                 color = Color(0xFF8391A1),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.W400,

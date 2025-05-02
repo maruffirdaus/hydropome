@@ -219,7 +219,8 @@ fun HomeScreen(
                         SearchBox(
                             value = uiState.searchQuery,
                             onValueChange = onSearchQueryChange,
-                            placeholder = "Cari tanaman..."
+                            placeholder = "Cari tanaman...",
+                            modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Row(
@@ -292,7 +293,7 @@ fun HomeScreen(
                             items(uiState.flashSaleProducts) { product ->
                                 ProductCard(
                                     image = product.image,
-                                    category = product.category,
+                                    category = product.category.label,
                                     title = product.title,
                                     regularPrice = product.regularPrice,
                                     discountedPrice = product.discountedPrice,

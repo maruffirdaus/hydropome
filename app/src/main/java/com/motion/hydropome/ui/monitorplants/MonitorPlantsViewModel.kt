@@ -33,7 +33,7 @@ class MonitorPlantsViewModel @Inject constructor(
         }
     }
 
-    fun changeSearchQuery(query: String) {
+    fun search(query: String) {
         _uiState.update {
             it.copy(searchQuery = query)
         }

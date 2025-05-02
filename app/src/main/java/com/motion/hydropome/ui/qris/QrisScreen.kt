@@ -23,10 +23,9 @@ import com.motion.hydropome.R
 import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.common.component.BackButton
 
-
 @Composable
-fun QRISScreen(
-    uiState: QRISUiState,
+fun QrisScreen(
+    uiState: QrisUiState,
     onStartCountdown: () -> Unit,
     onSetLoadingState: (Boolean) -> Unit,
     navController: NavController
@@ -81,7 +80,7 @@ fun QRISScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.qris),
+                    painter = painterResource(id = R.drawable.ill_qr),
                     contentDescription = "QR Code",
                     modifier = Modifier.fillMaxSize()
                 )
@@ -113,9 +112,9 @@ fun QRISScreen(
 
 @Preview
 @Composable
-fun QRISScreenPreview() {
-    QRISScreen(
-        uiState = QRISUiState(),
+fun QrisScreenPreview() {
+    QrisScreen(
+        uiState = QrisUiState(),
         onStartCountdown = {},
         onSetLoadingState = {},
         navController = rememberNavController()

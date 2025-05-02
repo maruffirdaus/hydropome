@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class QrisViewModel @Inject constructor() : ViewModel() {
 
-    private val _uiState = MutableStateFlow(QRISUiState())
+    private val _uiState = MutableStateFlow(QrisUiState())
     val uiState = _uiState.asStateFlow()
 
     // Start countdown timer

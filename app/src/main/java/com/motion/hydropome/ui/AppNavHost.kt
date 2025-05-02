@@ -10,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
-import com.motion.hydropome.ui.sellproduct.SellProductViewModel
 import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
 import com.motion.hydropome.ui.main.MainScreen
@@ -29,18 +28,20 @@ import com.motion.hydropome.ui.plantprogress.PlantProgressScreen
 import com.motion.hydropome.ui.plantprogress.PlantProgressViewModel
 import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
-import com.motion.hydropome.ui.qris.QRISScreen
+import com.motion.hydropome.ui.qris.QrisScreen
 import com.motion.hydropome.ui.qris.QrisViewModel
 import com.motion.hydropome.ui.receipt.ReceiptScreen
 import com.motion.hydropome.ui.receipt.ReceiptViewModel
 import com.motion.hydropome.ui.register.RegisterScreen
 import com.motion.hydropome.ui.register.RegisterViewModel
+import com.motion.hydropome.ui.sellproduct.SellProductScreen
+import com.motion.hydropome.ui.sellproduct.SellProductViewModel
 import com.motion.hydropome.ui.splash.SplashScreen
 import com.motion.hydropome.ui.splash.SplashViewModel
 import io.sanghun.compose.video.RepeatMode
 import io.sanghun.compose.video.VideoPlayer
 import io.sanghun.compose.video.uri.VideoPlayerMediaItem
-import com.motion.hydropome.ui.sellproduct.FormJualBarangScreen
+
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
@@ -83,18 +84,6 @@ fun AppNavHost() {
             )
         }
 
-        composable<AppDestination.Receipt> {
-            val viewModel: ReceiptViewModel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsState()
-
-            ReceiptScreen(
-                uiState = uiState,
-                navController = navController,
-                onLoadData = viewModel::loadUserAndReceipt
-            )
-        }
-
-
         composable<AppDestination.Register> {
             val viewModel: RegisterViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsState()
@@ -123,33 +112,6 @@ fun AppNavHost() {
                 navController = navController
             )
         }
-        composable<AppDestination.Qris> {
-            val viewModel: QrisViewModel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsState()
-
-            QRISScreen(
-                uiState = uiState,
-                onStartCountdown = viewModel::startCountdown,
-                onSetLoadingState = viewModel::setLoadingState,
-                navController = navController
-            )
-        }
-
-        composable<AppDestination.JualBarang> {
-            val viewModel: SellProductViewModel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsState()
-
-            FormJualBarangScreen(
-                uiState = uiState,
-                onProductNameChange = viewModel::onProductNameChange,
-                onCategoryChange = viewModel::onCategoryChange,
-                onPriceChange = viewModel::onPriceChange,
-                onContactChange = viewModel::onContactChange,
-                onDescriptionChange = viewModel::onDescriptionChange,
-                onSubmit = viewModel::submitProduct
-            )
-        }
-
 
         composable<AppDestination.Main> {
             val mainViewModel: MainViewModel = hiltViewModel()
@@ -173,7 +135,7 @@ fun AppNavHost() {
                     HomeScreen(
                         uiState = homeUiState,
                         onUserRefresh = homeViewModel::refreshUser,
-                        onSearchQueryChange = homeViewModel::changeSearchQuery,
+                        onSearchQueryChange = homeViewModel::search,
                         onPlantsRefresh = homeViewModel::refreshPlants,
                         navController = navController
                     )
@@ -182,13 +144,16 @@ fun AppNavHost() {
                     MonitorPlantsScreen(
                         uiState = monitorPlantsUiState,
                         onPlantProgressesRefresh = monitorPlantsViewModel::refreshPlantProgresses,
-                        onSearchQueryChange = monitorPlantsViewModel::changeSearchQuery,
+                        onSearchQueryChange = monitorPlantsViewModel::search,
                         navController = navController
                     )
                 },
                 marketplaceScreen = {
                     MarketplaceScreen(
-                        uiState = marketplaceUiState
+                        uiState = marketplaceUiState,
+                        onSearchQueryChange = marketplaceViewModel::search,
+                        onSelectedCategoryChange = marketplaceViewModel::changeSelectedCategory,
+                        navController = navController
                     )
                 },
                 profileScreen = {
@@ -244,6 +209,44 @@ fun AppNavHost() {
                 onCompleteDay = viewModel::completeDay,
                 onCompleteProgress = viewModel::completeProgress,
                 navController = navController
+            )
+        }
+
+        composable<AppDestination.SellProduct> {
+            val viewModel: SellProductViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            SellProductScreen(
+                uiState = uiState,
+                onTitleChange = viewModel::changeTitle,
+                onPriceChange = viewModel::changePrice,
+                onContactChange = viewModel::changeContact,
+                onDescriptionChange = viewModel::changeDescription,
+                onSell = viewModel::sell,
+                navController = navController
+            )
+        }
+
+        composable<AppDestination.Qris> {
+            val viewModel: QrisViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            QrisScreen(
+                uiState = uiState,
+                onStartCountdown = viewModel::startCountdown,
+                onSetLoadingState = viewModel::setLoadingState,
+                navController = navController
+            )
+        }
+
+        composable<AppDestination.Receipt> {
+            val viewModel: ReceiptViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            ReceiptScreen(
+                uiState = uiState,
+                navController = navController,
+                onLoadData = viewModel::loadUserAndReceipt
             )
         }
     }

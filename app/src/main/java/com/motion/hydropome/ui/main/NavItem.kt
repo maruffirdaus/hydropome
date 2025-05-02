@@ -3,7 +3,7 @@ package com.motion.hydropome.ui.main
 import androidx.annotation.DrawableRes
 import com.motion.hydropome.R
 
-enum class NavItems(
+enum class NavItem(
     val title: String,
     @DrawableRes val icon: Int
 ) {

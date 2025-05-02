@@ -1,4 +1,5 @@
 package com.motion.hydropome.ui.common.component
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun PopupBerhasil(
+fun SuccessPopUp(
 
 ) {
     Box(
@@ -47,7 +48,7 @@ fun PopupBerhasil(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.checklist),
+                        painter = painterResource(id = R.drawable.ic_success_mark),
                         contentDescription = "CheckList"
                     )
                 }

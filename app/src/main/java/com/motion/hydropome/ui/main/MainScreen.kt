@@ -65,7 +65,7 @@ fun MainScreen(
                     .padding(bottom = innerPadding.calculateBottomPadding()),
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
             ) {
-                NavItems.entries.forEach { navItem ->
+                NavItem.entries.forEach { navItem ->
                     val isSelected = uiState.selectedIndex == navItem.ordinal
                     val contentColor = if (isSelected) {
                         AppColors.primary

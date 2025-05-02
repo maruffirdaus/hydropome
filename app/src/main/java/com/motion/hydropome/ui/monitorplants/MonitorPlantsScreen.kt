@@ -131,7 +131,7 @@ fun MonitorPlantsScreen(
                             .calculateTopPadding() + 28.dp,
                         end = 20.dp,
                         bottom = 28.dp
-                    ),
+                    )
             ) {
                 Text(
                     text = "Bagaimana Kabar Tanamanmu Hari Ini?",
@@ -146,7 +146,8 @@ fun MonitorPlantsScreen(
                     onValueChange = onSearchQueryChange,
                     placeholder = "Cari tanaman kamu...",
                     containerColor = Color(0xFFF7F8F9),
-                    isShadowEnabled = true
+                    isShadowEnabled = true,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(Modifier.height(20.dp))
                 Column(
