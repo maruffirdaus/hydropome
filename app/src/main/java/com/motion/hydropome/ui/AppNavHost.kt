@@ -137,6 +137,7 @@ fun AppNavHost() {
                         onUserRefresh = homeViewModel::refreshUser,
                         onSearchQueryChange = homeViewModel::search,
                         onPlantsRefresh = homeViewModel::refreshPlants,
+                        onFlashSaleProductsRefresh = homeViewModel::refreshFlashSaleProducts,
                         navController = navController
                     )
                 },
@@ -151,6 +152,7 @@ fun AppNavHost() {
                 marketplaceScreen = {
                     MarketplaceScreen(
                         uiState = marketplaceUiState,
+                        onProductsRefresh = marketplaceViewModel::refreshProducts,
                         onSearchQueryChange = marketplaceViewModel::search,
                         onSelectedCategoryChange = marketplaceViewModel::changeSelectedCategory,
                         navController = navController
@@ -222,7 +224,7 @@ fun AppNavHost() {
                 onPriceChange = viewModel::changePrice,
                 onContactChange = viewModel::changeContact,
                 onDescriptionChange = viewModel::changeDescription,
-                onSell = viewModel::sell,
+                onSellProduct = viewModel::sellProduct,
                 navController = navController
             )
         }

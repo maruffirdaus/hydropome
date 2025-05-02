@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.motion.hydropome.data.repository.AuthRepository
 import com.motion.hydropome.data.repository.PlantProgressRepository
 import com.motion.hydropome.data.repository.PlantRepository
+import com.motion.hydropome.data.repository.ProductRepository
 import com.motion.hydropome.data.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -37,4 +38,9 @@ object RepositoryModule {
         firestore: FirebaseFirestore
     ): PlantProgressRepository =
         PlantProgressRepository(auth, firestore)
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(firestore: FirebaseFirestore): ProductRepository =
+        ProductRepository(firestore)
 }

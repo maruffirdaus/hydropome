@@ -58,6 +58,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.R
 import com.motion.hydropome.common.model.Plant
+import com.motion.hydropome.common.model.Product
+import com.motion.hydropome.common.type.Category
 import com.motion.hydropome.common.type.Difficulty
 import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.common.component.ProductCard
@@ -73,6 +75,7 @@ fun HomeScreen(
     onUserRefresh: () -> Unit,
     onSearchQueryChange: (String) -> Unit,
     onPlantsRefresh: () -> Unit,
+    onFlashSaleProductsRefresh: () -> Unit,
     navController: NavController
 ) {
     var recommendationCardWidth by remember { mutableStateOf(0.dp) }
@@ -81,6 +84,7 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         onUserRefresh()
         onPlantsRefresh()
+        onFlashSaleProductsRefresh()
     }
 
     AnimatedVisibility(
@@ -327,11 +331,32 @@ private fun HomeScreenPreview() {
                             difficulty = Difficulty.MEDIUM,
                             duration = "3-4"
                         ),
+                    ),
+                    flashSaleProducts = listOf(
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        ),
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        ),
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        )
                     )
                 ),
                 onUserRefresh = {},
                 onSearchQueryChange = {},
                 onPlantsRefresh = {},
+                onFlashSaleProductsRefresh = {},
                 navController = rememberNavController()
             )
         }

@@ -1,6 +1,5 @@
 package com.motion.hydropome.ui.common.component
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.motion.hydropome.R
 import com.motion.hydropome.ui.theme.AppColors
 import com.motion.hydropome.ui.theme.AppTheme
@@ -36,7 +36,7 @@ import java.util.Locale
 
 @Composable
 fun ProductCard(
-    @DrawableRes image: Int,
+    image: String,
     category: String,
     title: String,
     regularPrice: Int,
@@ -57,15 +57,27 @@ fun ProductCard(
             .clickable(onClick = onClick)
             .padding(8.dp)
     ) {
-        Image(
-            painter = painterResource(image),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(10.dp)),
-            contentScale = ContentScale.Crop
-        )
+        if (image.isNotBlank()) {
+            AsyncImage(
+                model = image,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(10.dp)),
+                contentScale = ContentScale.Crop
+            )
+        } else {
+            Image(
+                painter = painterResource(R.drawable.img_product_placeholder),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(10.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
         Spacer(Modifier.height(8.dp))
         Text(
             text = category,
@@ -129,7 +141,7 @@ fun ProductCard(
 private fun FlashSaleCardPreview() {
     AppTheme {
         ProductCard(
-            image = R.drawable.img_product_0,
+            image = "",
             category = "Starter Kit",
             title = "Basic Starter Kit",
             regularPrice = 50000,

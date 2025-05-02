@@ -3,6 +3,7 @@ package com.motion.hydropome.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.motion.hydropome.data.repository.PlantRepository
+import com.motion.hydropome.data.repository.ProductRepository
 import com.motion.hydropome.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val plantRepository: PlantRepository
+    private val plantRepository: PlantRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
@@ -47,6 +49,22 @@ class HomeViewModel @Inject constructor(
             plantRepository.getPlants().onSuccess { plants ->
                 _uiState.update {
                     it.copy(plants = plants)
+                }
+            }
+            _uiState.update {
+                it.copy(isLoading = false)
+            }
+        }
+    }
+
+    fun refreshFlashSaleProducts() {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(isLoading = true)
+            }
+            productRepository.getProducts().onSuccess { products ->
+                _uiState.update {
+                    it.copy(flashSaleProducts = products)
                 }
             }
             _uiState.update {

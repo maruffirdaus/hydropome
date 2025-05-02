@@ -54,7 +54,7 @@ fun SellProductScreen(
     onPriceChange: (String) -> Unit,
     onContactChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
-    onSell: (() -> Unit) -> Unit,
+    onSellProduct: (() -> Unit) -> Unit,
     navController: NavController
 ) {
     Scaffold { innerPadding ->
@@ -255,7 +255,7 @@ fun SellProductScreen(
                     CustomButton(
                         text = "Posting dan Jual",
                         onClick = {
-                            onSell {
+                            onSellProduct {
                                 navController.popBackStack(AppDestination.SellProduct, true)
                             }
                         },
@@ -278,7 +278,7 @@ fun SellProductScreenPreview() {
             onPriceChange = {},
             onContactChange = {},
             onDescriptionChange = {},
-            onSell = {},
+            onSellProduct = {},
             navController = rememberNavController()
         )
     }

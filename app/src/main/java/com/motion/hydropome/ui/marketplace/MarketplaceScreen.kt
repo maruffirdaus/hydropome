@@ -36,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.R
+import com.motion.hydropome.common.model.Product
 import com.motion.hydropome.common.type.Category
 import com.motion.hydropome.ui.AppDestination
 import com.motion.hydropome.ui.common.component.CustomButton
@@ -64,10 +66,15 @@ import com.motion.hydropome.ui.theme.AppTheme
 @Composable
 fun MarketplaceScreen(
     uiState: MarketplaceUiState,
+    onProductsRefresh: () -> Unit,
     onSearchQueryChange: (String) -> Unit,
     onSelectedCategoryChange: (Category) -> Unit,
     navController: NavController
 ) {
+    LaunchedEffect(Unit) {
+        onProductsRefresh()
+    }
+
     AnimatedVisibility(
         visible = uiState.isLoading,
         enter = fadeIn(),
@@ -235,7 +242,29 @@ fun MarketplaceScreenPreview() {
     AppTheme {
         Surface {
             MarketplaceScreen(
-                uiState = MarketplaceUiState(),
+                uiState = MarketplaceUiState(
+                    products = listOf(
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        ),
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        ),
+                        Product(
+                            title = "Basic Starter Kit",
+                            regularPrice = 50000,
+                            discountedPrice = 25000,
+                            category = Category.STARTER_KIT
+                        )
+                    )
+                ),
+                onProductsRefresh = {},
                 onSearchQueryChange = {},
                 onSelectedCategoryChange = {},
                 navController = rememberNavController()
