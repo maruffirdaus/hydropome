@@ -301,7 +301,9 @@ fun HomeScreen(
                                     title = product.title,
                                     regularPrice = product.regularPrice,
                                     discountedPrice = product.discountedPrice,
-                                    onClick = {},
+                                    onClick = {
+                                        navController.navigate(AppDestination.ProductDetails(product.id))
+                                    },
                                     modifier = Modifier.width(recommendationCardWidth)
                                 )
                             }

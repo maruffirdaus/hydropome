@@ -47,7 +47,7 @@ class ProductRepository @Inject constructor(
 
             firestore.collection("products")
                 .document(emptyDocument.id)
-                .set(product.toFirestore())
+                .set(product.copy(id = emptyDocument.id).toFirestore())
                 .await()
 
             Result.success(Unit)

@@ -26,6 +26,8 @@ import com.motion.hydropome.ui.plantdetails.PlantDetailsScreen
 import com.motion.hydropome.ui.plantdetails.PlantDetailsViewModel
 import com.motion.hydropome.ui.plantprogress.PlantProgressScreen
 import com.motion.hydropome.ui.plantprogress.PlantProgressViewModel
+import com.motion.hydropome.ui.productdetails.ProductDetailsScreen
+import com.motion.hydropome.ui.productdetails.ProductDetailsViewModel
 import com.motion.hydropome.ui.profile.ProfileScreen
 import com.motion.hydropome.ui.profile.ProfileViewModel
 import com.motion.hydropome.ui.qris.QrisScreen
@@ -210,6 +212,20 @@ fun AppNavHost() {
                 onTaskCompletionChange = viewModel::changeTaskCompletion,
                 onCompleteDay = viewModel::completeDay,
                 onCompleteProgress = viewModel::completeProgress,
+                navController = navController
+            )
+        }
+
+        composable<AppDestination.ProductDetails> {
+            val args = it.toRoute<AppDestination.ProductDetails>()
+
+            val viewModel: ProductDetailsViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            ProductDetailsScreen(
+                productId = args.productId,
+                uiState = uiState,
+                onProductRefresh = viewModel::refreshProduct,
                 navController = navController
             )
         }

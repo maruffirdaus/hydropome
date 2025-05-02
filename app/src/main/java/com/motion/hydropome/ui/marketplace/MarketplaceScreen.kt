@@ -223,7 +223,9 @@ fun MarketplaceScreen(
                         title = product.title,
                         regularPrice = product.regularPrice,
                         discountedPrice = product.discountedPrice,
-                        onClick = {},
+                        onClick = {
+                            navController.navigate(AppDestination.ProductDetails(product.id))
+                        },
                         modifier = Modifier
                             .padding(
                                 start = if (isEvenIndex) 20.dp else 0.dp,
