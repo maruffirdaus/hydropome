@@ -46,4 +46,31 @@ class AuthRepository @Inject constructor(
     fun isLoggedIn(): Boolean {
         return auth.currentUser != null
     }
+    suspend fun updateProfile(name: String, email: String, password: String, newPassword: String): Result<Unit> {
+        return try {
+            val user = auth.currentUser
+                ?: return Result.failure(Exception("User not logged in."))
+
+            firestore.collection("users")
+                .document(user.uid)
+                .update(
+                    mapOf(
+                        "name" to name,
+                        "email" to email
+                    )
+                ).await()
+
+            if (user.email != email) {
+                user.updateEmail(email).await()
+            }
+
+            if (password.isNotEmpty() && newPassword.isNotEmpty() && password != newPassword) {
+                user.updatePassword(newPassword).await()
+            }
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
