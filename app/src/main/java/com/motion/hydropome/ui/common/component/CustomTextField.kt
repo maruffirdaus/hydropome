@@ -78,7 +78,7 @@ fun CustomTextField(
         } else {
             KeyboardOptions.Default
         },
-        singleLine = isSingleLine,
+        singleLine = if (isPassword) true else isSingleLine,
         minLines = minLines,
         visualTransformation = if (!isPassword || isPasswordVisible) {
             VisualTransformation.None
@@ -92,7 +92,13 @@ fun CustomTextField(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .defaultMinSize(minHeight = 48.dp)
+                        .let {
+                            if (isPassword) {
+                                it.height(48.dp)
+                            } else {
+                                it.defaultMinSize(minHeight = 48.dp)
+                            }
+                        }
                         .clip(RoundedCornerShape(12.dp))
                         .border(
                             width = 1.dp,
