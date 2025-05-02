@@ -11,13 +11,11 @@ import com.motion.hydropome.R
 import com.motion.hydropome.ui.common.component.BackButton
 import com.motion.hydropome.ui.theme.AppTheme
 import androidx.compose.material3.*
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.ui.common.component.CustomButton
