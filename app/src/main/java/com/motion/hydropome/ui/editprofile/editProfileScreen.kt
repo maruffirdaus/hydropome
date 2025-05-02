@@ -45,7 +45,7 @@ fun EditProfileScreen(
                 .padding(top = 50.dp, start = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BackButton { /* Handle back click if needed */ }
+            BackButton {  }
             Text(
                 "Edit Profile",
                 modifier = Modifier.padding(start = 60.dp),
@@ -56,7 +56,7 @@ fun EditProfileScreen(
 
         ProfileAvatar(
             avatarResId = R.drawable.img_profile_default,
-            onEditClick = { /* Handle avatar edit */ },
+            onEditClick = {  },
             modifier = Modifier
                 .padding(top = 20.dp)
                 .offset(x = -23.dp)
