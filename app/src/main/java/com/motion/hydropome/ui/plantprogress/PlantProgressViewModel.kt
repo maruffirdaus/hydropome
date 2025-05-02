@@ -72,4 +72,20 @@ class PlantProgressViewModel @Inject constructor(
             }
         }
     }
+
+    fun completeProgress(onSuccess: () -> Unit) {
+        uiState.value.plantProgress?.let { plantProgress ->
+            viewModelScope.launch {
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+                plantProgressRepository.deletePlantProgress(plantProgress.id).onSuccess {
+                    onSuccess()
+                }
+                _uiState.update {
+                    it.copy(isLoading = false)
+                }
+            }
+        }
+    }
 }

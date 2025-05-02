@@ -19,6 +19,10 @@ class AuthRepository @Inject constructor(
         }
     }
 
+    fun logout() {
+        auth.signOut()
+    }
+
     suspend fun register(name: String, email: String, password: String): Result<Unit> {
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()

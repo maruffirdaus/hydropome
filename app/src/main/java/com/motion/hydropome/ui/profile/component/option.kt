@@ -33,17 +33,17 @@ fun OrderStatusSection() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         OrderStatusItem(
-            icon = painterResource(id = R.drawable.box),
+            icon = painterResource(id = R.drawable.ic_3d_square),
             label = "Diproses",
             onClick = {}
         )
         OrderStatusItem(
-            icon = painterResource(id = R.drawable.shipping),
+            icon = painterResource(id = R.drawable.ic_truck_fast),
             label = "Dikirim",
             onClick = {}
         )
         OrderStatusItem(
-            icon = painterResource(id = R.drawable.selesai),
+            icon = painterResource(id = R.drawable.ic_medal_star),
             label = "Selesai",
             onClick = {}
         )

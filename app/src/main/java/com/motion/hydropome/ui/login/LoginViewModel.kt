@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.motion.hydropome.data.repository.AuthRepository
+import com.motion.hydropome.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()
@@ -59,7 +61,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun login(onSuccess: () -> Unit) {
+    fun login(
+        onSuccessWithFilledPreferences: () -> Unit,
+        onSuccessWithUnfilledPreferences: () -> Unit
+    ) {
         viewModelScope.launch {
             _uiState.update {
                 it.copy(isLoading = true)
@@ -68,8 +73,13 @@ class LoginViewModel @Inject constructor(
                 email = uiState.value.email,
                 password = uiState.value.password
             ).onSuccess {
-                onSuccess()
-            }.onFailure {
+                userRepository.getUser().onSuccess { user ->
+                    if (user?.preferences?.isNotEmpty() == true) {
+                        onSuccessWithFilledPreferences()
+                    } else {
+                        onSuccessWithUnfilledPreferences()
+                    }
+                }
             }
             _uiState.update {
                 it.copy(isLoading = false)

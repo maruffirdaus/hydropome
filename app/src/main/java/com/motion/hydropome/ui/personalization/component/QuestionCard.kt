@@ -56,7 +56,7 @@ fun QuestionCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_question),
+                painter = painterResource(R.drawable.ill_plant_circle),
                 contentDescription = null,
                 modifier = Modifier.size(40.dp)
             )

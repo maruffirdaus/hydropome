@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
-import com.motion.hydropome.ui.jualBarang.SellProductViewModel
+import com.motion.hydropome.ui.sellproduct.SellProductViewModel
 import com.motion.hydropome.ui.login.LoginScreen
 import com.motion.hydropome.ui.login.LoginViewModel
 import com.motion.hydropome.ui.main.MainScreen
@@ -40,7 +40,7 @@ import com.motion.hydropome.ui.splash.SplashViewModel
 import io.sanghun.compose.video.RepeatMode
 import io.sanghun.compose.video.VideoPlayer
 import io.sanghun.compose.video.uri.VideoPlayerMediaItem
-import com.motion.hydropome.ui.jualBarang.FormJualBarangScreen
+import com.motion.hydropome.ui.sellproduct.FormJualBarangScreen
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
@@ -194,7 +194,9 @@ fun AppNavHost() {
                 profileScreen = {
                     ProfileScreen(
                         uiState = profileUiState,
-                        onGetUserData = profileViewModel::getUserData
+                        onUserRefresh = profileViewModel::refreshUser,
+                        onLogout = profileViewModel::logout,
+                        navController = navController
                     )
                 },
                 onSelectedNavItemChange = mainViewModel::changeSelectedIndex
@@ -240,6 +242,7 @@ fun AppNavHost() {
                 onPlantProgressRefresh = viewModel::refreshPlantProgress,
                 onTaskCompletionChange = viewModel::changeTaskCompletion,
                 onCompleteDay = viewModel::completeDay,
+                onCompleteProgress = viewModel::completeProgress,
                 navController = navController
             )
         }

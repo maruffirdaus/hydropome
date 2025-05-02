@@ -7,7 +7,7 @@ data class PersonalizationUiState(
     val selectedAnswers: Map<Int, Map<String, List<Boolean>>> = questions
         .mapIndexed { pageIndex, questionsOnPage ->
             pageIndex to questionsOnPage.associate { question ->
-                question.id.toString() to question.answers.map { false }
+                question.id to question.answers.map { false }
             }
         }.toMap(),
     val isLoading: Boolean = false

@@ -3,9 +3,12 @@ package com.motion.hydropome.ui.common.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +29,7 @@ fun TitleBar(
 ) {
     Row(
         modifier = Modifier
+            .padding(top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding())
             .fillMaxWidth()
             .height(64.dp)
             .padding(horizontal = 20.dp),
