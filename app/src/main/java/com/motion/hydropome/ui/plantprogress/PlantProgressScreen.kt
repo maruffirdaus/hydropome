@@ -398,6 +398,13 @@ fun PlantProgressScreen(
                                     fontWeight = FontWeight.W700
                                 )
                             }
+                            Spacer(Modifier.height(8.dp))
+                            Text(
+                                text = plantProgress.plant.tasksByDay[plantProgress.day].tip,
+                                color = AppColors.text,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.W400
+                            )
                         }
                         Spacer(Modifier.height(24.dp))
                         Image(
