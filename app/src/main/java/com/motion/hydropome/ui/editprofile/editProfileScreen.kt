@@ -18,16 +18,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.motion.hydropome.ui.common.component.CustomButton
 import com.motion.hydropome.ui.common.component.CustomTextField
 import com.motion.hydropome.ui.editprofile.component.ProfileAvatar
 
 @Composable
 fun EditProfileScreen(
-    viewModel: EditProfileViewModel = hiltViewModel()
+    uiState: EditProfileUiState,
+    onNameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onNewPasswordChange: (String) -> Unit,
+    onSaveClick: (() -> Unit) -> Unit,
+    navController: NavController
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +45,7 @@ fun EditProfileScreen(
                 .padding(top = 50.dp, start = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BackButton { }
+            BackButton { /* Handle back click if needed */ }
             Text(
                 "Edit Profile",
                 modifier = Modifier.padding(start = 60.dp),
@@ -49,7 +55,7 @@ fun EditProfileScreen(
         }
 
         ProfileAvatar(
-            avatarResId = R.drawable.profile,
+            avatarResId = R.drawable.img_profile_default,
             onEditClick = { /* Handle avatar edit */ },
             modifier = Modifier
                 .padding(top = 20.dp)
@@ -68,7 +74,7 @@ fun EditProfileScreen(
             Text("Nama Lengkap", fontSize = 19.sp, fontWeight = FontWeight.W700)
             CustomTextField(
                 value = uiState.name,
-                onValueChange = { viewModel.changeName(it) },
+                onValueChange = onNameChange,
                 placeholder = "Enter your name",
                 isPassword = false,
                 errorMessage = uiState.nameErrorMessage
@@ -79,7 +85,7 @@ fun EditProfileScreen(
             Text("Email", fontSize = 19.sp, fontWeight = FontWeight.W700)
             CustomTextField(
                 value = uiState.email,
-                onValueChange = { viewModel.changeEmail(it) },
+                onValueChange = onEmailChange,
                 placeholder = "Enter your email",
                 isPassword = false,
                 errorMessage = uiState.emailErrorMessage
@@ -90,7 +96,7 @@ fun EditProfileScreen(
             Text("Password", fontSize = 19.sp, fontWeight = FontWeight.W700)
             CustomTextField(
                 value = uiState.password,
-                onValueChange = { viewModel.changePassword(it) },
+                onValueChange = onPasswordChange,
                 placeholder = "Enter current password",
                 isPassword = true,
                 errorMessage = uiState.passwordErrorMessage
@@ -101,7 +107,7 @@ fun EditProfileScreen(
             Text("Ubah Password", fontSize = 19.sp, fontWeight = FontWeight.W700)
             CustomTextField(
                 value = uiState.newPassword,
-                onValueChange = { viewModel.changeNewPassword(it) },
+                onValueChange = onNewPasswordChange,
                 placeholder = "Enter new password",
                 isPassword = true,
                 errorMessage = uiState.newPasswordErrorMessage
@@ -112,23 +118,37 @@ fun EditProfileScreen(
             CustomButton(
                 text = if (uiState.isLoading) "Menyimpan..." else "Simpan",
                 onClick = {
-                    viewModel.saveProfileChanges {
+                    onSaveClick {
+                        navController.popBackStack()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                isEnabled  = uiState.isFormValid && !uiState.isLoading
+                isEnabled = uiState.isFormValid && !uiState.isLoading
             )
         }
     }
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun EditProfilePreview() {
+private fun EditProfileScreenPreview() {
     AppTheme {
         EditProfileScreen(
-
+            uiState = EditProfileUiState(
+                name = "John Doe",
+                email = "john.doe@example.com",
+                password = "password123",
+                newPassword = "newpassword123",
+                isFormValid = true,
+                isLoading = false
+            ),
+            onNameChange = {},
+            onEmailChange = {},
+            onPasswordChange = {},
+            onNewPasswordChange = {},
+            onSaveClick = {},
+            navController = rememberNavController()
         )
     }
 }

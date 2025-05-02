@@ -4,10 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.motion.hydropome.ui.editprofile.EditProfileScreen
+import com.motion.hydropome.ui.editprofile.EditProfileViewModel
 import com.motion.hydropome.ui.home.HomeScreen
 import com.motion.hydropome.ui.home.HomeViewModel
 import com.motion.hydropome.ui.sellproduct.SellProductViewModel
@@ -147,6 +150,20 @@ fun AppNavHost() {
                 onContactChange = viewModel::onContactChange,
                 onDescriptionChange = viewModel::onDescriptionChange,
                 onSubmit = viewModel::submitProduct
+            )
+        }
+        composable<AppDestination.EditProfile> {
+            val viewModel: EditProfileViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            EditProfileScreen(
+                uiState = uiState,
+                onNameChange = viewModel::changeName,
+                onEmailChange = viewModel::changeEmail,
+                onPasswordChange = viewModel::changePassword,
+                onNewPasswordChange = viewModel::changeNewPassword,
+                onSaveClick = viewModel::saveProfileChanges,
+                navController = navController
             )
         }
 

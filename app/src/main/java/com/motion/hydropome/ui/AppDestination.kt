@@ -31,6 +31,9 @@ sealed class AppDestination {
     data object JualBarang : AppDestination()
 
     @Serializable
+    data object EditProfile : AppDestination()
+
+    @Serializable
     data class PlantDetails(
         val plantId: String,
         val isStartPlantEnabled: Boolean = true

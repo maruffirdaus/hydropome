@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
-    private val authRepository: AuthRepository // adjust this if needed
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(EditProfileUiState())
     val uiState = _uiState.asStateFlow()
