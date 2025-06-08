@@ -29,6 +29,12 @@ An app prototype to help people grow hydroponic plants, built with Kotlin. This 
 
 ### Frameworks / Libraries:
 * **Jetpack Compose**
+* **ViewModel**
+* **StateFlow**
+* **Coroutines**
+
+### Dependency Injection:
+* **Hilt**
 
 ### Backend / Services:
 * **Firebase Authentication**
@@ -54,6 +60,6 @@ An app prototype to help people grow hydroponic plants, built with Kotlin. This 
     * Navigate to the cloned `hydropome` folder and select it.
 3.  **Sync Gradle:**
     * Wait for Android Studio to index files and sync the project with its Gradle files.
-4.  **Run the App:**
+4.  **Run the app:**
     * Select an available emulator or connect a physical Android device.
     * Click the `Run 'app'` button (green play icon).
