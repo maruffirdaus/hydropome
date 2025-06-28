@@ -1,6 +1,6 @@
 # HydropoMe
 
-An app prototype to help people grow hydroponic plants, built with Kotlin. This project was developed for the MotionHack 4.0 - Internal Hackathon by Mobile Innovation Laboratory, Telkom University.
+An app prototype to help people grow hydroponic plants, built with Kotlin. This project was developed for MotionHack 4.0, an internal hackathon event by Mobile Innovation Laboratory, Telkom University.
 
 ## Screenshots:
 
