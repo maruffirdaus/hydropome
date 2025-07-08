@@ -2,7 +2,7 @@
 
 An app prototype to help people grow hydroponic plants, built with Kotlin. This project was developed for MotionHack 4.0, an internal hackathon event by Mobile Innovation Laboratory, Telkom University.
 
-## Screenshots:
+## Screenshots
 
 <img src="https://github.com/user-attachments/assets/7c7a6fa1-783f-4123-ae59-e8d640c17eb2" height="512px">
 <img src="https://github.com/user-attachments/assets/93dcae81-e99d-4726-ba94-ebc53f98f828" height="512px">
@@ -16,31 +16,35 @@ An app prototype to help people grow hydroponic plants, built with Kotlin. This 
 <img src="https://github.com/user-attachments/assets/d0855143-24ee-45dd-a635-6ef1fb56cd19" height="512px">
 <img src="https://github.com/user-attachments/assets/833b24fb-689b-4285-b7f7-d082d04fb26a" height="512px">
 
-## Prototype Features:
+## Prototype Features
 
 * **Plant Guide:** Provide guides and steps for growing various hydroponic plants.
 * **Plant Monitoring:** Track the daily progress and tasks for your growing plants.
 * **Marketplace:** Buy and sell hydroponic-related items.
 
-## Technologies Used:
+## Technologies Used
 
-### Languages:
-* **Kotlin**
+**Languages:**
 
-### Frameworks / Libraries:
-* **Jetpack Compose**
-* **ViewModel**
-* **StateFlow**
-* **Coroutines**
+* Kotlin
 
-### Dependency Injection:
-* **Hilt**
+**Frameworks/Libraries:**
 
-### Backend / Services:
-* **Firebase Authentication**
-* **Cloud Firestore**
+* Jetpack Compose
+* ViewModel
+* StateFlow
+* Coroutines
 
-## How to Run:
+**Dependency Injection:**
+
+* Hilt
+
+**Backend/Services:**
+
+* Firebase Authentication
+* Cloud Firestore
+
+## How to Run
 
 **Prerequisites:**
 
